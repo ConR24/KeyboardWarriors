@@ -31,15 +31,15 @@ class App extends React.Component<MyProps, MyState> {
         <header className="App-header">
           
         </header>
-        <Router basename="/">
+        <Router basename={process.env.PUBLIC_URL}>
           <Switch>
-            <Route exact path="/">
+            <Route exact path={'/'}>
               <LandingPage />
             </Route>
-            <Route path="/fight">
+            <Route exact path={'/fight'}>
               <TypingPage insults={insults} />
             </Route>
-            <Route path="/leaderboard">
+            <Route exact path={'/leaderboard'}>
               <LeaderboardPage />
             </Route>
           </Switch>

@@ -14,7 +14,7 @@ export class LeaderboardPage extends React.Component {
         <div>
           <div className="leaderboard-page-header">
             <Navbar bg="dark" variant="dark">
-              <Navbar.Brand href="/">
+              <Navbar.Brand href={process.env.PUBLIC_URL}>
                 <img
                   alt="Keyboard Warriors"
                   src={kbWarriorsLogo}
