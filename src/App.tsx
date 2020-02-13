@@ -4,7 +4,7 @@ import TypingPage from "./TypingPage/TypingPage";
 import {LandingPage} from "./LandingPage/LandingPage";
 import {LeaderboardPage} from "./LeaderboardPage/LeaderboardPage";
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route
 } from 'react-router-dom';
@@ -31,7 +31,7 @@ class App extends React.Component<MyProps, MyState> {
         <header className="App-header">
           
         </header>
-        <Router>
+        <Router basename="/">
           <Switch>
             <Route exact path="/">
               <LandingPage />
