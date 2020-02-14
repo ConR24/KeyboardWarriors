@@ -1,0 +1,31 @@
+.finish {
+    max-height: 150px;
+    margin: auto;
+    display: block;
+}
+
+.try-harder{
+    text-align: center;
+}
+
+.results{
+    width: 90% !important;
+    margin: auto !important;
+    margin-top: 1rem !important;
+}
+
+/* .results > .results-column{
+
+} */
+
+.submit-button{
+    background-color: var(--brightOrange) !important;
+    border-color: var(--brightOrange) !important;
+    width: 100%;
+    color:black !important;
+    font-size: large !important;
+}
+
+.modal-dialog{
+    max-width: 60% !important;
+}
