@@ -32,12 +32,17 @@ export class FinishModal extends React.Component<FinishProps,FinishState> {
 
     handleFormChange(e: any){
         this.setState({
-            name: e.target.value
+            name: e.target.value,
         });
     };
 
-    convertMilliToMMSS(milliseconds: number): string{
-        let seconds = milliseconds / 1000;
+    handleSubmit(e: any){
+        this.setState({
+            active: false
+        })
+    }
+
+    convertToMMSS(seconds: number): string{
         let hours = Math.floor(seconds / 3600);
         seconds = seconds % 3600;
         let minutes = Math.floor(seconds / 60);
@@ -61,7 +66,7 @@ export class FinishModal extends React.Component<FinishProps,FinishState> {
                             <h4 className="result-column"><b>Speed:</b> {`${this.props.speed} char/sec`}</h4>
                         </Col>
                         <Col xs={6}>
-                            <h4 className="result-column"><b>Time:</b> {this.convertMilliToMMSS(this.props.time)}</h4>
+                            <h4 className="result-column"><b>Time:</b> {this.convertToMMSS(this.props.time)}</h4>
                         </Col>
                     </Row>
                     <Row className="results">
@@ -69,12 +74,7 @@ export class FinishModal extends React.Component<FinishProps,FinishState> {
                             <Form.Control placeholder="Name" onChange={(e: any) => this.handleFormChange(e)} value={this.state.name} />
                         </Col>
                         <Col xs={6}>
-                            <Button variant="primary" className="submit-button">Ok</Button>
-                        </Col>
-                    </Row>
-                    <Row className="update-leaderboard">
-                        <Col xs={6}>
-
+                            <Button variant="primary" onClick={(e: any) => this.handleSubmit(e)}className="submit-button">Ok</Button>
                         </Col>
                     </Row>
                 </Modal.Body>
