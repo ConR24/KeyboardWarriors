@@ -6,7 +6,7 @@ export class Leaderboard extends React.Component {
     render() {
       return (
           <div className="leaderboard-container">
-              <h1 className="leaderboard-title">Top Times</h1>
+              <h2 className="leaderboard-title">Leaderboard</h2>
               <div className="leaderboard-table">
                 <Table borderless striped responsive="sm">
                     <thead>

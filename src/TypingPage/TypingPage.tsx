@@ -4,6 +4,7 @@ import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Timer from "../components/Timer/Timer";
+import { FinishModal } from "../components/Finish/FinishModal";
 
 import logo from "../resources/keyboardWarriorWhite.png";
 
@@ -16,6 +17,7 @@ export interface TypingProps {
 export interface TypingState {
     currentInsult: number;
     typedText: string;
+    isFinished: boolean;
 }
 
 // game page where players type insults as quickly as possible
@@ -27,7 +29,8 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
 
         this.state = {
             currentInsult: 0,
-            typedText: ""
+            typedText: "",
+            isFinished: false
         };
 
         this._timer = React.createRef();
@@ -51,6 +54,9 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
             // stop timer if the last insult was completed
             if(this.props.insults.length === currentInsult + 1) {
                 this._timer.current!.stop();
+                this.setState({
+                    isFinished: true,
+                });
             }
         }
     }
@@ -61,7 +67,7 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
         return (
             <div>
                 <Navbar bg="dark" variant="dark">
-                    <Navbar.Brand>
+                    <Navbar.Brand href={process.env.PUBLIC_URL}>
                         <img
                             alt="Keyboard Warriors"
                             src={logo}
@@ -72,6 +78,7 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
                         Keyboard Warriors
                     </Navbar.Brand>
                 </Navbar>
+                {this.state.isFinished && <FinishModal time={this._timer.current!.getTime()} speed={3.1} />}
                 <Container className="typing-container">
                     <Timer ref={this._timer}/>
                     {this.props.insults.map((insult, index) => {

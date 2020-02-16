@@ -1,3 +1,7 @@
+.landing-container {
+    margin-top: 10%;
+}
+
 .fight-button{
     background-color: var(--brightOrange) !important;
     border-color: var(--brightOrange) !important;

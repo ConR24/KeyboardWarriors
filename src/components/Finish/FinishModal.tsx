@@ -7,15 +7,14 @@ import good from "../../resources/goodJob.png";
 import bad from "../../resources/badJob.png";
 import Form from "react-bootstrap/Form";
 import Button from 'react-bootstrap/Button';
+import {Link} from 'react-router-dom';
 
 export interface FinishProps{
-    active: boolean;
     speed: number;
     time: number;
 }
 
 export interface FinishState{
-    active: boolean;
     name: string;
 }
 
@@ -24,7 +23,6 @@ export class FinishModal extends React.Component<FinishProps,FinishState> {
         super(props);
 
         this.state = {
-            active: props.active,
             name: ""
         };
         
@@ -36,11 +34,6 @@ export class FinishModal extends React.Component<FinishProps,FinishState> {
         });
     };
 
-    handleSubmit(e: any){
-        this.setState({
-            active: false
-        })
-    }
 
     convertToMMSS(seconds: number): string{
         let hours = Math.floor(seconds / 3600);
@@ -51,10 +44,10 @@ export class FinishModal extends React.Component<FinishProps,FinishState> {
     }
     
     render(){
-        const {active, name} = this.state;
+        const {name} = this.state;
 
         return(
-            <Modal show={active}>
+            <Modal show={true}>
                 <Modal.Body>
                     <img className="finish"
                         alt="Try harder."
@@ -74,7 +67,9 @@ export class FinishModal extends React.Component<FinishProps,FinishState> {
                             <Form.Control placeholder="Name" onChange={(e: any) => this.handleFormChange(e)} value={this.state.name} />
                         </Col>
                         <Col xs={6}>
-                            <Button variant="primary" onClick={(e: any) => this.handleSubmit(e)}className="submit-button">Ok</Button>
+                            <Link to="/leaderboard">
+                                <Button variant="primary" className="submit-button">Ok</Button>
+                            </Link>
                         </Col>
                     </Row>
                 </Modal.Body>
