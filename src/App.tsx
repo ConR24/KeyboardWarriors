@@ -2,6 +2,12 @@ import React from 'react';
 import './App.css';
 import TypingPage from "./TypingPage/TypingPage";
 import {LandingPage} from "./LandingPage/LandingPage";
+import {LeaderboardPage} from "./LeaderboardPage/LeaderboardPage";
+import {
+  HashRouter as Router,
+  Switch,
+  Route
+} from 'react-router-dom';
 
 interface MyProps {};
 interface MyState {
@@ -25,8 +31,19 @@ class App extends React.Component<MyProps, MyState> {
         <header className="App-header">
           
         </header>
-        <TypingPage insults={insults}/>
-        <LandingPage/>
+        <Router basename={process.env.PUBLIC_URL}>
+          <Switch>
+            <Route exact path={'/'}>
+              <LandingPage />
+            </Route>
+            <Route exact path={'/fight'}>
+              <TypingPage insults={insults} />
+            </Route>
+            <Route exact path={'/leaderboard'}>
+              <LeaderboardPage />
+            </Route>
+          </Switch>
+        </Router>
       </div>
     );
   }
