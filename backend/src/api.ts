@@ -9,8 +9,8 @@ const port = 8000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const insults = require('../../resources/insults.json');
-let leaderboard = require('../../resources/leaderboard.json');
+const insults = require('../../src/resources/insults.json');
+let leaderboard = require('../../src/resources/leaderboard.json');
 
 
 function sortLeaderboard(){
