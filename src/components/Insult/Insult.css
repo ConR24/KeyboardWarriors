@@ -12,6 +12,11 @@
 
 .red {
     color: red;
+    text-decoration: underline;
+}
+
+.redSpace {
+    background-color: red;
 }
 
 .greyed {
