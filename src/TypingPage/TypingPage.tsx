@@ -18,6 +18,7 @@ export interface TypingState {
     currentInsult: number;
     typedText: string;
     isFinished: boolean;
+    numChars: number;
 }
 
 // game page where players type insults as quickly as possible
@@ -27,10 +28,19 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
     constructor(props: TypingProps) {
         super(props);
 
+        let count = 0;
+        const insults = this.props.insults;
+
+        //count chars in insults
+        for(let i = 0; i < insults.length; i++) {
+            count += insults[i].length;
+        }
+
         this.state = {
             currentInsult: 0,
             typedText: "",
-            isFinished: false
+            isFinished: false,
+            numChars: count
         };
 
         this._timer = React.createRef();
@@ -62,7 +72,7 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
     }
 
     render() {
-        const {currentInsult, typedText} = this.state;
+        const {currentInsult, typedText, numChars} = this.state;
         
         return (
             <div>
@@ -78,7 +88,10 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
                         Keyboard Warriors
                     </Navbar.Brand>
                 </Navbar>
-                {this.state.isFinished && <FinishModal time={this._timer.current!.getTime()} speed={3.1} />}
+                {this.state.isFinished && <FinishModal 
+                    time={this._timer.current!.getTimeString()}
+                    speed={(numChars / (this._timer.current!.getTime() / 100))}
+                />}
                 <Container className="typing-container">
                     <Timer ref={this._timer}/>
                     {this.props.insults.map((insult, index) => {

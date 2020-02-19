@@ -56,6 +56,11 @@ class Timer extends React.Component<TimerProps, TimerState> {
         return this.state.time;
     }
 
+    // retreive time elapsed in a nice format
+    getTimeString() {
+        return this.state.timeInMins;
+    }
+
     render() {
         return (
             <div className="timer">

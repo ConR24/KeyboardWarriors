@@ -11,7 +11,7 @@ import {Link} from 'react-router-dom';
 
 export interface FinishProps{
     speed: number;
-    time: number;
+    time: string;
 }
 
 export interface FinishState{
@@ -33,15 +33,6 @@ export class FinishModal extends React.Component<FinishProps,FinishState> {
             name: e.target.value,
         });
     };
-
-
-    convertToMMSS(seconds: number): string{
-        let hours = Math.floor(seconds / 3600);
-        seconds = seconds % 3600;
-        let minutes = Math.floor(seconds / 60);
-        seconds = seconds % 60;
-        return hours+":"+minutes+":"+seconds;
-    }
     
     render(){
         const {name} = this.state;
@@ -56,10 +47,10 @@ export class FinishModal extends React.Component<FinishProps,FinishState> {
                     <h1 className="try-harder">Try Harder.</h1>
                     <Row className="results">
                         <Col xs={6}>
-                            <h4 className="result-column"><b>Speed:</b> {`${this.props.speed} char/sec`}</h4>
+                            <h4 className="result-column"><b>Speed:</b> {`${this.props.speed.toFixed(2)} char/sec`}</h4>
                         </Col>
                         <Col xs={6}>
-                            <h4 className="result-column"><b>Time:</b> {this.convertToMMSS(this.props.time)}</h4>
+                            <h4 className="result-column"><b>Time:</b> {this.props.time}</h4>
                         </Col>
                     </Row>
                     <Row className="results">
