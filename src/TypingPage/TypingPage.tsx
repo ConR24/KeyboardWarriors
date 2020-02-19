@@ -90,7 +90,7 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
                 </Navbar>
                 {this.state.isFinished && <FinishModal 
                     time={this._timer.current!.getTimeString()}
-                    speed={(numChars / (this._timer.current!.getTime() / 100))}
+                    speed={3.1}
                 />}
                 <Container className="typing-container">
                     <Timer ref={this._timer}/>
