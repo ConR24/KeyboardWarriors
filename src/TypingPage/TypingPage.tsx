@@ -18,7 +18,6 @@ export interface TypingState {
     currentInsult: number;
     typedText: string;
     isFinished: boolean;
-    numChars: number;
 }
 
 // game page where players type insults as quickly as possible
@@ -28,19 +27,10 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
     constructor(props: TypingProps) {
         super(props);
 
-        let count = 0;
-        const insults = this.props.insults;
-
-        //count chars in insults
-        for(let i = 0; i < insults.length; i++) {
-            count += insults[i].length;
-        }
-
         this.state = {
             currentInsult: 0,
             typedText: "",
-            isFinished: false,
-            numChars: count
+            isFinished: false
         };
 
         this._timer = React.createRef();
@@ -72,7 +62,7 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
     }
 
     render() {
-        const {currentInsult, typedText, numChars} = this.state;
+        const {currentInsult, typedText} = this.state;
         
         return (
             <div>
