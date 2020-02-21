@@ -78,10 +78,8 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
                         Keyboard Warriors
                     </Navbar.Brand>
                 </Navbar>
-                {this.state.isFinished && <FinishModal 
-                    time={this._timer.current!.getTimeString()}
-                    speed={3.1}
-                />}
+                {/* Calculate typing speed by joining array into string and dividing it by time */}
+                {this.state.isFinished && <FinishModal time={this._timer.current!.getTime()} speed={Number((this.props.insults.join().length / this._timer.current!.getTime()).toFixed(2))} />}
                 <Container className="typing-container">
                     <Timer ref={this._timer}/>
                     {this.props.insults.map((insult, index) => {

@@ -29,14 +29,13 @@ export class FinishModal extends React.Component<FinishProps,FinishState> {
     }
 
     handleFormChange(e: any){
+        let playerName: string = e.target.value;
         this.setState({
-            name: e.target.value,
+            name: playerName.substring(0,3).toUpperCase(),
         });
     };
     
     render(){
-        const {name} = this.state;
-
         return(
             <Modal show={true}>
                 <Modal.Body>
