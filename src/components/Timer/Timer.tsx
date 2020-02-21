@@ -39,7 +39,7 @@ class Timer extends React.Component<TimerProps, TimerState> {
         let secs = Math.floor(newMils / 100);
         let mins = Math.floor(secs / 60);
         let secStr = ('0' + (secs % 60)).slice(-2);
-        let milStr = ('0' + (newMils % 100)).slice(-2);
+        let milStr = ('0' + (Math.ceil((newMils % 100) / 10) * 10)).slice(-2);
         this.setState({
             time: newMils, 
             timeInMins: "" + mins + ":" + secStr + ":" + milStr
