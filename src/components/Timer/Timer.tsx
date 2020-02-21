@@ -16,7 +16,7 @@ class Timer extends React.Component<TimerProps, TimerState> {
 
         this.state = {
             time: 0,
-            timeInMins: "0:00",
+            timeInMins: "0:00:00",
             interval: setInterval(() => {}, 0)
         };
 
@@ -30,17 +30,19 @@ class Timer extends React.Component<TimerProps, TimerState> {
 
     // initialize interval for timer
     init() {
-        this.setState ({ interval: setInterval(this.tick, 1000) });
+        this.setState ({ interval: setInterval(this.tick, 10) });
     }
 
     // increase the time of the timer and the timer label
     tick() {
-        let newSecs = this.state.time + 1;
-        let mins = Math.floor(newSecs / 60);
-        let secs = ('0' + (newSecs % 60)).slice(-2);
+        let newMils = this.state.time + 1;
+        let secs = Math.floor(newMils / 100);
+        let mins = Math.floor(secs / 60);
+        let secStr = ('0' + (secs % 60)).slice(-2);
+        let milStr = ('0' + (Math.ceil((newMils % 100) / 10) * 10)).slice(-2);
         this.setState({
-            time: newSecs, 
-            timeInMins: "" + mins + ":" + secs
+            time: newMils, 
+            timeInMins: "" + mins + ":" + secStr + ":" + milStr
         });
     }
 
@@ -52,6 +54,11 @@ class Timer extends React.Component<TimerProps, TimerState> {
     // retrieve time elapsed
     getTime() {
         return this.state.time;
+    }
+
+    // retreive time elapsed in a nice format
+    getTimeString() {
+        return this.state.timeInMins;
     }
 
     render() {

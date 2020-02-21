@@ -54,7 +54,7 @@ class Insult extends React.Component<InsultProps, {state: InsultState}> {
                 tags = <div className="orngBorder">
                     <b>
                         <s>{strikethrough}</s>
-                        <span className="red">{error}</span>
+                        <span className={error === ' ' ? "redSpace" : "red"}>{error}</span>
                         {text.substring(i)}
                     </b>
                 </div>;
