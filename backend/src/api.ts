@@ -9,8 +9,8 @@ const port = 8000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const insults = require('../../resources/insults.json');
-let leaderboard = require('../../resources/leaderboard.json');
+const insults = require('../../src/resources/insults.json');
+let leaderboard = require('../../src/resources/leaderboard.json');
 
 
 function sortLeaderboard(){
@@ -38,7 +38,7 @@ app.post('/player', (req: Request, res: Response) => {
     leaderboard = {...leaderboard, Player: [...leaderboard.Player, req.body]};  // add the new score
     sortLeaderboard();  // sort the leaderboard with the new score
     resizeLeaderboard();  // resize board if necessary
-    fs.writeFileSync('../resources/leaderboard.json', JSON.stringify({...leaderboard}));  // overwrite
+    fs.writeFileSync('../src/resources/leaderboard.json', JSON.stringify({...leaderboard}));  // overwrite
 
     return res.status(200).json({
       status: 200,
