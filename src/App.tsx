@@ -31,8 +31,7 @@ class App extends React.Component<MyProps, MyState> {
     fetch('/insults')
       .then(res => res.json())
       .then(insults => {
-          const shuffled = insults.Insults.sort(() => 0.5 - Math.random());
-          this.setState({insults: shuffled.slice(0, 5)});
+          this.setState({insults: insults});
       });
   }
 

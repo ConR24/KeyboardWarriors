@@ -26,7 +26,8 @@ function resizeLeaderboard(){
 }
 
 app.get('/insults', (req: Request, res: Response) => {
-  return res.send(insults);
+  const shuffled = insults.Insults.sort(() => 0.5 - Math.random());
+  return res.send(shuffled.slice(0, 5));
 });
 
 app.get('/leaderboard', (req: Request, res: Response) => {
