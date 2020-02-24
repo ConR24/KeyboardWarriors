@@ -14,7 +14,7 @@ let leaderboard = require('../../src/resources/leaderboard.json');
 
 
 function sortLeaderboard(){
-  leaderboard.Player.sort(function(a, b){
+  leaderboard.Player.sort(function(a : any, b : any){
     return a.time - b.time;
 });
 }
