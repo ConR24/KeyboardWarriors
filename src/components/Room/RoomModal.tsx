@@ -10,11 +10,15 @@ import {Link} from 'react-router-dom';
 
 export interface RoomState{
     join: boolean;
-    make: boolean;
+    create: boolean;
 }
 
-export class RoomModal extends React.Component<RoomState> {
-    constructor(props: any){
+export interface RoomProps{
+    active: boolean
+}
+
+export class RoomModal extends React.Component<RoomProps, RoomState> {
+    constructor(props: RoomProps){
         super(props);
 
         this.state = {
@@ -32,8 +36,8 @@ export class RoomModal extends React.Component<RoomState> {
 
     handleCreateRequest(e: any){
         this.setState({
-            make: true,
-            create: false
+            create: true,
+            join: false
         });
     }
 

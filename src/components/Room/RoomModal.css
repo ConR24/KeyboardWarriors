@@ -1,20 +1,28 @@
-.finish {
+.keyboard-logo {
     max-height: 150px;
     margin: auto;
     display: block;
 }
 
-.try-harder{
+.keyboard-warriors{
     text-align: center;
 }
 
-.results{
+.room-selection{
     width: 90% !important;
     margin: auto !important;
     margin-top: 1rem !important;
 }
 
-.submit-button{
+.join-room-button{
+    background-color: var(--brightOrange) !important;
+    border-color: var(--brightOrange) !important;
+    width: 100%;
+    color:black !important;
+    font-size: large !important;
+}
+
+.create-room-button{
     background-color: var(--brightOrange) !important;
     border-color: var(--brightOrange) !important;
     width: 100%;
