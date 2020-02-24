@@ -12,17 +12,24 @@ import {
 interface MyProps {};
 interface MyState {
   testState: string,
+  insults: string[],
 };
-
-// TODO: this is just here until the routing and everything is set up, so it should be removed eventually
-let insults = ["You are dumb", "Your father was a hamster and your mother smelt of elderberries", "I dislike you"];
 
 class App extends React.Component<MyProps, MyState> {
   constructor(props: any) {
     super(props);
     this.state = {
       testState: "save",
+      insults: [],
     }
+  }
+
+  componentDidMount() {
+    fetch('/insults')
+      .then(res => res.json())
+      .then(insults => {
+          this.setState({insults: insults});
+      });
   }
 
   render(): JSX.Element {
@@ -37,7 +44,7 @@ class App extends React.Component<MyProps, MyState> {
               <LandingPage />
             </Route>
             <Route exact path={'/fight'}>
-              <TypingPage insults={insults} />
+              <TypingPage insults={this.state.insults} />
             </Route>
             <Route exact path={'/leaderboard'}>
               <LeaderboardPage />
