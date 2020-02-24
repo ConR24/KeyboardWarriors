@@ -1,6 +1,7 @@
 import React from 'react';
 import './Leaderboard.css';
-import Table from 'react-bootstrap/Table'
+import Table from 'react-bootstrap/Table';
+import { msToTimeString } from "../../util";
 
 export interface LeaderboardProps {}
 
@@ -33,13 +34,12 @@ export class Leaderboard extends React.Component<LeaderboardProps, LeaderboardSt
     }
 
     generateLeaderboard() {
-        console.log(this.state.records);
         return this.state.records.map((record, index) => { 
             return (
-            <tr>
-                <td>{ index }</td>
+            <tr key={record.name}>
+                <td>{ index + 1 }</td>
                 <td>{ record.name }</td>
-                <td>{ record.time }</td>
+                <td>{ msToTimeString(record.time) }</td>
             </tr>) 
          });
     }
@@ -58,7 +58,6 @@ export class Leaderboard extends React.Component<LeaderboardProps, LeaderboardSt
                             <th>Time</th>
                         </tr>
                     </thead>
-                    {/*Hard Coded Currently until design is finalized*/}
                     <tbody>
                         {this.generateLeaderboard()}
                     </tbody>
