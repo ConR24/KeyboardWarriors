@@ -51,12 +51,12 @@ export class RoomModal extends React.Component<RoomProps, RoomState> {
                     ></img>
                     <h1 className="keyboard-warriors">Keyboard Warriors</h1>
                     <Row className="room-selection">
-                        <Col xs={6}>
+                        <Col className="join-container" xs={6}>
                             <Link to="/join_room">
                                 <Button variant="primary" className="join-room-button" onChange={(e: any) => this.handleJoinRequest(e)}>Join Room</Button>
                             </Link>
                         </Col>
-                        <Col xs={6}>
+                        <Col className="create-container" xs={6}>
                             <Link to="/create_room">
                                 <Button variant="primary" className="create-room-button" onChange={(e: any) => this.handleCreateRequest(e)}>Create Room</Button>
                             </Link>
