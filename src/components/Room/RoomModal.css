@@ -6,6 +6,7 @@
 
 .keyboard-warriors{
     text-align: center;
+    width: 105%;
 }
 
 .room-selection{
@@ -34,7 +35,7 @@
 .create-room-button{
     background-color: var(--lightOrange) !important;
     border-color: var(--lightOrange) !important;
-    width: 50%;
+    width: 45%;
     margin: auto;
     color:black !important;
     font-size: large !important;
