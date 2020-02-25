@@ -5,6 +5,8 @@ import fs from "fs";
 
 const app = express();
 const port = 8000;
+const server = require('http').createServer(app);
+const sio = require('socket.io')(server);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -12,9 +14,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const insults = require('../../src/resources/insults.json');
 let leaderboard = require('../../src/resources/leaderboard.json');
 
+sio.on('connection', (client: SocketIO.Socket) => {
+  client.on('subscribeToTimer', (interval: any) => {
+    // tslint:disable-next-line:no-console
+    console.log('client is subscribing to timer with interval ', interval);
+    setInterval(() => {
+      client.emit('timer', new Date());
+    }, interval);
+  });
+});
 
 function sortLeaderboard(){
-  leaderboard.Player.sort(function(a, b){
+  leaderboard.Player.sort(function(a: any, b: any){
     return a.time - b.time;
 });
 }
@@ -56,4 +67,4 @@ app.post('/player', (req: Request, res: Response) => {
 });
 
 // tslint:disable-next-line:no-console
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+server.listen(port, () => console.log(`Example app listening on port ${port}!`))

@@ -14,6 +14,8 @@
   "dependencies": {
     "@types/jest": "^24.9.1",
     "@types/node": "^12.12.26",
+    "@types/socket.io": "^2.1.4",
+    "socket.io": "^2.3.0",
     "typescript": "^3.7.5"
   },
   "devDependencies": {
