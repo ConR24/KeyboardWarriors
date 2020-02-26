@@ -31,7 +31,6 @@ class App extends React.Component<MyProps, MyState> {
           this.setState({insults: insults});
       });
   }
-  //{/*this.state.insults*/}
 
   render(): JSX.Element {
     return (
@@ -45,7 +44,7 @@ class App extends React.Component<MyProps, MyState> {
               <LandingPage />
             </Route>
             <Route exact path={'/fight'}>
-              <TypingPage insults={["bad"]} />
+              <TypingPage insults={this.state.insults} />
             </Route>
             <Route exact path={'/leaderboard'}>
               <LeaderboardPage />

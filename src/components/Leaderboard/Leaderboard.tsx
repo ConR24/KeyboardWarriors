@@ -36,7 +36,7 @@ export class Leaderboard extends React.Component<LeaderboardProps, LeaderboardSt
     generateLeaderboard() {
         return this.state.records.map((record, index) => {
             return (
-            <tr key={record.name}>
+            <tr key={record.name + record.time}>
                 <td>{ index + 1 }</td>
                 <td>{ record.name }</td>
                 <td>{ record.time + " char/sec" }</td>

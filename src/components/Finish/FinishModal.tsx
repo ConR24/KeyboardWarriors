@@ -78,13 +78,7 @@ export class FinishModal extends React.Component<FinishProps,FinishState> {
                             <Form.Control placeholder="Name" onChange={(e: any) => this.handleFormChange(e)} value={this.state.name} />
                         </Col>
                         <Col xs={6}>
-                            <Link to={{
-                                pathname: "/leaderboard",
-                                state: {
-                                    name: this.state.name,
-                                    speed: this.props.speed,
-                                }
-                            }}>
+                            <Link to="/leaderboard">
                                 <Button onClick={this.sendStats} variant="primary" className="submit-button">Ok</Button>
                             </Link>
                         </Col>
