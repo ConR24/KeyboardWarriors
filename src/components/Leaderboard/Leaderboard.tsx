@@ -34,12 +34,12 @@ export class Leaderboard extends React.Component<LeaderboardProps, LeaderboardSt
     }
 
     generateLeaderboard() {
-        return this.state.records.map((record, index) => { 
+        return this.state.records.map((record, index) => {
             return (
             <tr key={record.name}>
                 <td>{ index + 1 }</td>
                 <td>{ record.name }</td>
-                <td>{ msToTimeString(record.time) }</td>
+                <td>{ record.time + " char/sec" }</td>
             </tr>) 
          });
     }
