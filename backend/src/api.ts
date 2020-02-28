@@ -1,3 +1,4 @@
+// tslint:disable:no-console
 import express from "express";
 import { Request, Response } from 'express';
 import bodyParser from 'body-parser';
@@ -15,12 +16,24 @@ const insults = require('../../src/resources/insults.json');
 let leaderboard = require('../../src/resources/leaderboard.json');
 
 sio.on('connection', (client: SocketIO.Socket) => {
-  client.on('subscribeToTimer', (interval: any) => {
-    // tslint:disable-next-line:no-console
-    console.log('client is subscribing to timer with interval ', interval);
-    setInterval(() => {
-      client.emit('timer', new Date());
-    }, interval);
+  client.on('joinRoom', (roomCode: string) => {
+    if (!sio.nsps['/'].adapter.rooms[roomCode]) {
+      client.join(roomCode);
+    }
+    if (sio.nsps['/'].adapter.rooms[roomCode] && sio.nsps['/'].adapter.rooms[roomCode].length < 2) {
+      client.join(roomCode);
+      if (sio.nsps['/'].adapter.rooms[roomCode].length === 2) {
+        sio.sockets.in(roomCode).emit('connectToRoom', "You are connected to room " + roomCode);
+      }
+    }
+  });
+
+  client.on('sendInsult', (roomCode: string, insult: string) => {
+    client.broadcast.to(roomCode).emit('incomingInsult', insult);
+  });
+
+  client.on('leaveRoom', (roomCode: string) => {
+    client.leave(roomCode);
   });
 });
 
