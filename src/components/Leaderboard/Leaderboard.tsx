@@ -1,8 +1,50 @@
 import React from 'react';
 import './Leaderboard.css';
-import Table from 'react-bootstrap/Table'
+import Table from 'react-bootstrap/Table';
+import { msToTimeString } from "../../util";
 
-export class Leaderboard extends React.Component {
+export interface LeaderboardProps {}
+
+export interface LeaderboardState {
+    records: Array<Record>;
+}
+
+export interface Record {
+    name: string;
+    time: number;
+}
+
+export class Leaderboard extends React.Component<LeaderboardProps, LeaderboardState> {
+    constructor(props: LeaderboardProps) {
+        super(props);
+
+        this.state = {
+            records: []
+        };
+
+        this.generateLeaderboard = this.generateLeaderboard.bind(this);
+    }
+
+    componentDidMount() {
+        fetch('/leaderboard')
+            .then(res => res.json())
+            .then(ranks => {
+                this.setState({records: ranks.Player});
+            });
+    }
+
+    generateLeaderboard() {
+        return this.state.records.map((record, index) => {
+            return (
+            <tr key={record.name + record.time}>
+                <td>{ index + 1 }</td>
+                <td>{ record.name }</td>
+                <td>{ record.time + " char/sec" }</td>
+            </tr>) 
+         });
+    }
+
+
     render() {
       return (
           <div className="leaderboard-container">
@@ -16,58 +58,8 @@ export class Leaderboard extends React.Component {
                             <th>Time</th>
                         </tr>
                     </thead>
-                    {/*Hard Coded Currently until design is finalized*/}
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>RJC</td>
-                            <td>1:24:45</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>RJC</td>
-                            <td>1:30:15</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>RJC</td>
-                            <td>1:30:16</td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>RJC</td>
-                            <td>1:34:45</td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>RJC</td>
-                            <td>1:36:15</td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>RJC</td>
-                            <td>1:38:16</td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>RJC</td>
-                            <td>1:40:45</td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>RJC</td>
-                            <td>1:42:15</td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td>RJC</td>
-                            <td>1:43:16</td>
-                        </tr>
-                        <tr>
-                            <td>10</td>
-                            <td>RJC</td>
-                            <td>1:50:16</td>
-                        </tr>
+                        {this.generateLeaderboard()}
                     </tbody>
                 </Table>
               </div>
