@@ -11,6 +11,10 @@ function listenForInsults(cb: any) {
     socket.on('incomingInsult', (incoming: string) => cb(null, incoming));
 }
 
+function listenForPlayerLeft(cb: any) {
+    socket.on('playerLeftRoom', () => cb(null));
+}
+
 function sendInsult(roomCode: string, insult: string) {
     socket.emit('sendInsult', roomCode, insult);
 }
@@ -22,5 +26,6 @@ function leaveRoom(roomCode: string) {
 export { joinRoom,
     sendInsult,
     listenForInsults,
-    leaveRoom
+    leaveRoom,
+    listenForPlayerLeft
  };

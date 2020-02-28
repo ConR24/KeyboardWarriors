@@ -35,6 +35,7 @@ sio.on('connection', (client: SocketIO.Socket) => {
   });
 
   client.on('leaveRoom', (roomCode: string) => {
+    client.broadcast.to(roomCode).emit('playerLeftRoom');
     client.leave(roomCode);
   });
 });
