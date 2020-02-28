@@ -1,8 +1,9 @@
 import openSocket from 'socket.io-client';
 const socket = openSocket('http://localhost:8000');
 
-function joinRoom(roomCode: string, cb: any) {
+function joinRoom(roomCode: string, cb: any, errCB: any) {
     socket.on('connectToRoom', (message: any) => cb(null, message));
+    socket.on('roomIsFull', () => errCB(null));
     socket.emit('joinRoom', roomCode);
 }
 
@@ -14,4 +15,12 @@ function sendInsult(roomCode: string, insult: string) {
     socket.emit('sendInsult', roomCode, insult);
 }
 
-export { joinRoom, sendInsult, listenForInsults };
+function leaveRoom(roomCode: string) {
+    socket.emit('leaveRoom', roomCode);
+}
+
+export { joinRoom,
+    sendInsult,
+    listenForInsults,
+    leaveRoom
+ };

@@ -17,14 +17,17 @@ let leaderboard = require('../../src/resources/leaderboard.json');
 
 sio.on('connection', (client: SocketIO.Socket) => {
   client.on('joinRoom', (roomCode: string) => {
-    if (!sio.nsps['/'].adapter.rooms[roomCode]) {
+    const room = sio.nsps['/'].adapter.rooms[roomCode];
+    if (!room) {
       client.join(roomCode);
     }
-    if (sio.nsps['/'].adapter.rooms[roomCode] && sio.nsps['/'].adapter.rooms[roomCode].length < 2) {
+    if (room && room.length < 2) {
       client.join(roomCode);
-      if (sio.nsps['/'].adapter.rooms[roomCode].length === 2) {
+      if (room.length === 2) {
         sio.sockets.in(roomCode).emit('connectToRoom', "You are connected to room " + roomCode);
       }
+    } else {
+      client.emit('roomIsFull');
     }
   });
 
