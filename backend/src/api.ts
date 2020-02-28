@@ -20,8 +20,7 @@ sio.on('connection', (client: SocketIO.Socket) => {
     const room = sio.nsps['/'].adapter.rooms[roomCode];
     if (!room) {
       client.join(roomCode);
-    }
-    if (room && room.length < 2) {
+    } else if (room && room.length < 2) {
       client.join(roomCode);
       if (room.length === 2) {
         sio.sockets.in(roomCode).emit('connectToRoom', "You are connected to room " + roomCode);
