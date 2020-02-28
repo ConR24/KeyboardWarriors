@@ -12,12 +12,6 @@ import {Link} from 'react-router-dom';
 export interface FinishProps{
     speed: number;
     time: string;
-    location?: {
-        state: {
-            name: string;
-            speed: string;
-        }
-    }
 }
 
 export interface FinishState{
