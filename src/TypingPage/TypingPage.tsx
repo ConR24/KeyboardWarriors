@@ -96,7 +96,7 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
                         return <Insult key={insult} text={insult} state={state} typedText={typedText} />
                     })}
                     <Row className="justify-content-md-center input-box">
-                        <input onCopy={(e) => this.handleCopyAndPaste(e)} onPaste={e => this.handleCopyAndPaste(e)} onChange={this.textChanged} value={typedText} />
+                        <input onCopy={this.handleCopyAndPaste} onPaste={this.handleCopyAndPaste} onChange={this.textChanged} value={typedText} />
                     </Row>
                 </Container>
             </div>

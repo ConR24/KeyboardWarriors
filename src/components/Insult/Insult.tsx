@@ -69,7 +69,7 @@ class Insult extends React.Component<InsultProps, {state: InsultState}> {
         }
 
         return (
-            <div onCopy={(e) => this.handleCopyAndPaste(e)} onPaste={e => this.handleCopyAndPaste(e)} className="insult">
+            <div onCopy={this.handleCopyAndPaste} onPaste={this.handleCopyAndPaste} className="insult">
                 {tags}
             </div>
         );
