@@ -1,7 +1,7 @@
 import React from 'react';
 import './Leaderboard.css';
 import Table from 'react-bootstrap/Table';
-import { msToTimeString } from "../../util";
+// import { msToTimeString } from "../../util";
 
 export interface LeaderboardProps {}
 
