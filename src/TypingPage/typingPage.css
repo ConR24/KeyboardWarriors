@@ -20,3 +20,22 @@
     position: absolute;
     left: 7%;
 }
+
+@media screen and (max-width: 1300px) {
+    .timer {
+        position: unset;
+        left: unset;
+        margin: auto;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .typing-container {
+        width: unset !important;
+        margin-bottom: 50px;
+    }
+
+    .input-box {
+        padding: 0 20px;
+    }
+}
