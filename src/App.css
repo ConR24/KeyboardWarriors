@@ -2,3 +2,13 @@
     width: 100%;
     font-size: 18pt;
 }
+
+.mode-toggle{
+    position: fixed;
+    right: 10px;
+    top: 10px;
+}
+
+html{
+    min-height: 100vh;
+}

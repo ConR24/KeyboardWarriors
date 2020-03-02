@@ -3,6 +3,7 @@ import './App.css';
 import TypingPage from "./TypingPage/TypingPage";
 import {LandingPage} from "./LandingPage/LandingPage";
 import {LeaderboardPage} from "./LeaderboardPage/LeaderboardPage";
+import flashlight from "./resources/flashlight.svg";
 import {
   HashRouter as Router,
   Switch,
@@ -32,11 +33,16 @@ class App extends React.Component<MyProps, MyState> {
       });
   }
 
+  toggleTheme(e: React.MouseEvent<HTMLImageElement, MouseEvent>): void {
+    e.preventDefault();
+    console.log("Clicked!");
+  }
+
   render(): JSX.Element {
     return (
       <div className="App">
         <header className="App-header">
-          
+          <img className="mode-toggle" onClick={(e) => this.toggleTheme(e)} src={flashlight} alt={'A flashlight'}></img>
         </header>
         <Router basename={process.env.PUBLIC_URL}>
           <Switch>
