@@ -30,6 +30,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "startbackend": "cd backend && npm run start",
+    "startboth": "npm-run-all -p startbackend start",
     "build": "react-scripts build",
     "predeploy": "npm run build",
     "deploy": "gh-pages --repo https://github.com/gldias/KeyboardWarriors -d build",
@@ -52,6 +54,7 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^2.2.0"
+    "gh-pages": "^2.2.0",
+    "npm-run-all": "^4.1.5"
   }
 }
