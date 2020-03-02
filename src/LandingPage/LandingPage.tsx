@@ -18,7 +18,7 @@ export class LandingPage extends React.Component<LandingProps> {
 
   render() {
     return (
-        <Container className={"landing-container" + this.props.dark ? "" : "dark"}>
+        <Container className={"landing-container " + (this.props.dark ? "dark" : "")}>
           {this.props.dark ? <img className="logo" src={kbWarriorsLightLogo} alt="A white and orange helmet"/> : <img className="logo" src={kbWarriorsLogo} alt="A black and orange helmet"/>}
           <h1 className={"title" + (this.props.dark ? " dark-text" : "")}>Keyboard Warriors</h1>
           <Row className="justify-content-md-center button-row">
