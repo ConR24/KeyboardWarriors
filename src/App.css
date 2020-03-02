@@ -1,6 +1,7 @@
 .App {
     width: 100%;
     font-size: 18pt;
+    min-height: 100vh;
 }
 
 .mode-toggle{
@@ -11,4 +12,8 @@
 
 html{
     min-height: 100vh;
+}
+
+.dark{
+    background-color: #222222;
 }

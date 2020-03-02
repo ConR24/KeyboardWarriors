@@ -10,11 +10,12 @@ import {
   Route
 } from 'react-router-dom';
 
-interface MyProps {};
+interface MyProps {}
 interface MyState {
   testState: string,
   insults: string[],
-};
+  dark: boolean
+}
 
 class App extends React.Component<MyProps, MyState> {
   constructor(props: any) {
@@ -22,6 +23,7 @@ class App extends React.Component<MyProps, MyState> {
     this.state = {
       testState: "save",
       insults: [],
+      dark: localStorage.getItem("darkMode") ? localStorage.getItem("darkMode") === "true" : false 
     }
   }
 
@@ -35,29 +37,35 @@ class App extends React.Component<MyProps, MyState> {
 
   toggleTheme(e: React.MouseEvent<HTMLImageElement, MouseEvent>): void {
     e.preventDefault();
-    console.log("Clicked!");
+    //Set localStorage in callback because setState is async
+    this.setState({
+      dark: !this.state.dark
+    }, () => {
+      localStorage.setItem("darkMode", this.state.dark ? "true" : "false");
+      console.log(this.state.dark);
+    });    
   }
 
   render(): JSX.Element {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img className="mode-toggle" onClick={(e) => this.toggleTheme(e)} src={flashlight} alt={'A flashlight'}></img>
-        </header>
-        <Router basename={process.env.PUBLIC_URL}>
-          <Switch>
-            <Route exact path={'/'}>
-              <LandingPage />
-            </Route>
-            <Route exact path={'/fight'}>
-              <TypingPage insults={this.state.insults} />
-            </Route>
-            <Route exact path={'/leaderboard'}>
-              <LeaderboardPage />
-            </Route>
-          </Switch>
-        </Router>
-      </div>
+        <div className={this.state.dark ? "App dark" : "App"}>
+          <header className="App-header">
+            <img className="mode-toggle" onClick={(e) => this.toggleTheme(e)} src={flashlight} alt={'A flashlight'}></img>
+          </header>
+          <Router basename={process.env.PUBLIC_URL}>
+            <Switch>
+              <Route exact path={'/'}>
+                <LandingPage dark={this.state.dark} />
+              </Route>
+              <Route exact path={'/fight'}>
+                <TypingPage insults={this.state.insults} />
+              </Route>
+              <Route exact path={'/leaderboard'}>
+                <LeaderboardPage />
+              </Route>
+            </Switch>
+          </Router>
+        </div>
     );
   }
 }
