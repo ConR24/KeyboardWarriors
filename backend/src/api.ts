@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const insults = require('../../src/resources/insults.json');
 let leaderboard = require('../../src/resources/leaderboard.json');
 
-//Define Socket.IO functions
+// Define Socket.IO functions
 sio.on('connection', (client: SocketIO.Socket) => {
   /**
    * Join a room with a room code. Can only join room with less than 2 people.
@@ -65,7 +65,7 @@ sio.on('connection', (client: SocketIO.Socket) => {
  */
 function sortLeaderboard(){
   leaderboard.Player.sort(function(a: any, b: any){
-    return a.time - b.time;
+    return b.speed - a.speed;
 });
 }
 
