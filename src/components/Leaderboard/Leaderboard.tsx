@@ -10,7 +10,7 @@ export interface LeaderboardState {
 
 export interface Record {
     name: string;
-    time: number;
+    speed: number;
 }
 
 export class Leaderboard extends React.Component<LeaderboardProps, LeaderboardState> {
@@ -35,10 +35,10 @@ export class Leaderboard extends React.Component<LeaderboardProps, LeaderboardSt
     generateLeaderboard() {
         return this.state.records.map((record, index) => {
             return (
-            <tr key={record.name + record.time}>
+            <tr key={record.name + record.speed}>
                 <td>{ index + 1 }</td>
                 <td>{ record.name }</td>
-                <td>{ record.time + " char/sec" }</td>
+                <td>{ record.speed + " char/sec" }</td>
             </tr>) 
          });
     }
@@ -54,7 +54,7 @@ export class Leaderboard extends React.Component<LeaderboardProps, LeaderboardSt
                         <tr>
                             <th>Rank</th>
                             <th>Initials</th>
-                            <th>Time</th>
+                            <th>Speed</th>
                         </tr>
                     </thead>
                     <tbody>
