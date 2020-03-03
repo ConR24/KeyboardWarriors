@@ -18,10 +18,8 @@ jobs:
         npm run build --if-present
 
     - name: Deploy
-      run: |
-        rm -rf node_modules/gh-pages/.cache
-        npm run deploy
+      uses: JamesIves/github-pages-deploy-action@releases/v3
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BRANCH: gh-pages
-        FOLDER: dist
+        FOLDER: build
