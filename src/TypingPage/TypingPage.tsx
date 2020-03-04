@@ -61,6 +61,11 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
         }
     }
 
+    handleCopyAndPaste(e: React.ClipboardEvent<HTMLInputElement>): void {
+        e.preventDefault();
+        e.nativeEvent.stopImmediatePropagation();
+    }
+
     render() {
         const {currentInsult, typedText} = this.state;
         
@@ -95,6 +100,8 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
                             autoFocus
                             onChange={this.textChanged}
                             value={typedText}
+                            onCopy={this.handleCopyAndPaste} 
+                            onPaste={this.handleCopyAndPaste}
                         />
                     </Row>
                 </Container>
