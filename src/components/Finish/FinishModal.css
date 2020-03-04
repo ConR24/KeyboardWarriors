@@ -30,6 +30,15 @@
     max-width: 60% !important;
 }
 
-.dark{
-    background-color: #333333;
+.modal-body.dark-modal {
+    background-color: #333333 !important;
+}
+
+.dark-input{
+    background:#444 !important;
+    color:white !important;
+}
+
+.dark-modal *{
+    color:white !important;
 }

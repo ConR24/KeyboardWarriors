@@ -2,7 +2,9 @@ import React from 'react';
 import './Leaderboard.css';
 import Table from 'react-bootstrap/Table';
 
-export interface LeaderboardProps {}
+export interface LeaderboardProps {
+    dark: boolean
+}
 
 export interface LeaderboardState {
     records: Array<Record>;
@@ -49,7 +51,7 @@ export class Leaderboard extends React.Component<LeaderboardProps, LeaderboardSt
           <div className="leaderboard-container">
               <h2 className="leaderboard-title">Leaderboard</h2>
               <div className="leaderboard-table">
-                <Table borderless striped responsive="sm">
+                <Table className={this.props.dark ? "dark-table" : ""} borderless striped responsive="sm">
                     <thead>
                         <tr>
                             <th>Rank</th>

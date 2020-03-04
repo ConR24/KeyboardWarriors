@@ -38,7 +38,7 @@ export class LeaderboardPage extends React.Component<LeaderboardProps> {
           </div>
           <div className="leaderboard-page-content">
             <Image className="background-logo" src={this.props.dark ? kbWarriorsLightLogo : kbWarriorsLogo} alt="A black and orange helmet" />
-            <Leaderboard/>
+            <Leaderboard dark={this.props.dark}/>
           </div>
         </div>  
       );

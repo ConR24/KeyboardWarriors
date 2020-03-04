@@ -2,7 +2,9 @@ import React from "react";
 import "./timer.css";
 import { msToTimeString } from "../../util";
 
-export interface TimerProps {};
+export interface TimerProps {
+    dark: boolean;
+};
 
 export interface TimerState {
     time: number;
@@ -62,8 +64,8 @@ class Timer extends React.Component<TimerProps, TimerState> {
     render() {
         return (
             <div className="timer">
-                <div className="time">{this.state.timeInMins}</div>
-                <div className="timeLabel">Time Elapsed</div>
+                <div className={"time " + (this.props.dark ? "dark-timer" : "")}>{this.state.timeInMins}</div>
+                <div className={"timeLabel " + (this.props.dark ? "dark-timer" : "")}>Time Elapsed</div>
             </div>
         );
     }

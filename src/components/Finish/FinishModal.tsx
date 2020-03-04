@@ -52,8 +52,8 @@ export class FinishModal extends React.Component<FinishProps,FinishState> {
     
     render(){
         return(
-            <Modal className={this.props.dark ? "dark" : ""} show={true}>
-                <Modal.Body>
+            <Modal show={true}>
+                <Modal.Body className={this.props.dark ? "dark-modal" : ""}>
                     <img className="finish"
                         alt="Try harder."
                         src={bad}                    
@@ -69,7 +69,7 @@ export class FinishModal extends React.Component<FinishProps,FinishState> {
                     </Row>
                     <Row className="results">
                         <Col xs={6}>
-                            <Form.Control placeholder="Name" onChange={(e: any) => this.handleFormChange(e)} value={this.state.name} />
+                            <Form.Control className={this.props.dark ? "dark-input" : ""} placeholder="Name" onChange={(e: any) => this.handleFormChange(e)} value={this.state.name} />
                         </Col>
                         <Col xs={6}>
                             <Link to="/leaderboard">
