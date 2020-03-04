@@ -91,7 +91,11 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
                         return <Insult key={insult} text={insult} state={state} typedText={typedText} />
                     })}
                     <Row className="justify-content-md-center input-box">
-                        <input onChange={this.textChanged} value={typedText} />
+                        <input
+                            autoFocus
+                            onChange={this.textChanged}
+                            value={typedText}
+                        />
                     </Row>
                 </Container>
             </div>
