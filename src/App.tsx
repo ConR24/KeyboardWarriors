@@ -3,7 +3,8 @@ import './App.css';
 import TypingPage from "./TypingPage/TypingPage";
 import {LandingPage} from "./LandingPage/LandingPage";
 import {LeaderboardPage} from "./LeaderboardPage/LeaderboardPage";
-import flashlight from "./resources/flashlight.svg";
+import sun from "./resources/sun.svg";
+import moon from "./resources/night.svg";
 import {
   HashRouter as Router,
   Switch,
@@ -63,7 +64,12 @@ class App extends React.Component<MyProps, MyState> {
               </Route>
             </Switch>
           </Router>
-          <img className="mode-toggle" onClick={(e) => this.toggleTheme(e)} src={flashlight} alt={'A flashlight'}></img>
+          {
+            this.state.dark ? <img className="mode-toggle dark" onClick={(e) => this.toggleTheme(e)} src={sun} alt={'A sun'}></img> :
+             <img className="mode-toggle" onClick={(e) => this.toggleTheme(e)} src={moon} alt={'A cloudy moon'}></img>
+          }
+          
+          
         </div>
     );
   }

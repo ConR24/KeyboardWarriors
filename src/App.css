@@ -10,6 +10,15 @@
     bottom: 10px;
 }
 
+.mode-toggle.dark{
+    filter: invert();
+    background-color: revert;
+}
+
+.mode-toggle:hover{
+    cursor: pointer;
+}
+
 html{
     min-height: 100vh;
 }
