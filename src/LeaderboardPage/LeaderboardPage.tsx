@@ -12,20 +12,18 @@ export class LeaderboardPage extends React.Component {
     render() {
       return (
         <div>
-          <div className="leaderboard-page-header">
-            <Navbar bg="dark" variant="dark">
-              <Navbar.Brand href={process.env.PUBLIC_URL}>
-                <img
-                  alt="Keyboard Warriors"
-                  src={kbWarriorsLogo}
-                  width="30"
-                  height="30"
-                  className="d-inline-block align-top"
-                />{' '}
-                Keyboard Warriors
-              </Navbar.Brand>
-            </Navbar>
-          </div>
+          <Navbar bg="dark" variant="dark" tabIndex={-1}>
+            <Navbar.Brand href={process.env.PUBLIC_URL} tabIndex={1} aria-label="Back to home page">
+              <img
+                alt="Keyboard Warriors"
+                src={kbWarriorsLogo}
+                width="30"
+                height="30"
+                className="d-inline-block align-top"
+              />{' '}
+              Keyboard Warriors
+            </Navbar.Brand>
+          </Navbar>
           <div className="leaderboard-page-content">
             <Image className="background-logo" src={logo} alt="A black and orange helmet" />
             <Leaderboard/>
