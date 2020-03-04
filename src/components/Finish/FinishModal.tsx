@@ -11,6 +11,7 @@ import {Link} from 'react-router-dom';
 export interface FinishProps{
     speed: number;
     time: string;
+    dark: boolean;
 }
 
 export interface FinishState{
@@ -51,7 +52,7 @@ export class FinishModal extends React.Component<FinishProps,FinishState> {
     
     render(){
         return(
-            <Modal show={true}>
+            <Modal className={this.props.dark ? "dark" : ""} show={true}>
                 <Modal.Body>
                     <img className="finish"
                         alt="Try harder."

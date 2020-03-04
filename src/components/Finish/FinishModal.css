@@ -29,3 +29,7 @@
 .modal-dialog{
     max-width: 60% !important;
 }
+
+.dark{
+    background-color: #333333;
+}

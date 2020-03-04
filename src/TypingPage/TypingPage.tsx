@@ -12,6 +12,7 @@ import "./typingPage.css";
 
 export interface TypingProps {
     insults: string[];
+    dark: boolean;
 }
 
 export interface TypingState {
@@ -79,8 +80,9 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
                     </Navbar.Brand>
                 </Navbar>
                 {/* Calculate typing speed by joining array into string and dividing it by time */}
-                {this.state.isFinished && <FinishModal 
-                    time={this._timer.current!.getTimeString()} 
+                {<FinishModal 
+                    time={this._timer.current!.getTimeString()}
+                    dark={this.props.dark}
                     speed={Number((this.props.insults.join().length / (this._timer.current!.getTime() / 100)).toFixed(2))} 
                 />}
                 <Container className="typing-container">
@@ -91,7 +93,7 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
                         return <Insult key={insult} text={insult} state={state} typedText={typedText} />
                     })}
                     <Row className="justify-content-md-center input-box">
-                        <input onChange={this.textChanged} value={typedText} />
+                        <input className={this.props.dark ? "dark-input" : ""} onChange={this.textChanged} value={typedText} />
                     </Row>
                 </Container>
             </div>

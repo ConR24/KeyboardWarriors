@@ -20,3 +20,7 @@
     position: absolute;
     left: 7%;
 }
+
+.dark-input{
+    background-color: #444444;
+}

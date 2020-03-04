@@ -49,7 +49,6 @@ class App extends React.Component<MyProps, MyState> {
     return (
         <div className={this.state.dark ? "App dark" : "App"}>
           <header className="App-header">
-            <img className="mode-toggle" onClick={(e) => this.toggleTheme(e)} src={flashlight} alt={'A flashlight'}></img>
           </header>
           <Router basename={process.env.PUBLIC_URL}>
             <Switch>
@@ -57,13 +56,14 @@ class App extends React.Component<MyProps, MyState> {
                 <LandingPage dark={this.state.dark} />
               </Route>
               <Route exact path={'/fight'}>
-                <TypingPage insults={this.state.insults} />
+                <TypingPage dark={this.state.dark} insults={this.state.insults} />
               </Route>
               <Route exact path={'/leaderboard'}>
-                <LeaderboardPage />
+                <LeaderboardPage dark={this.state.dark} />
               </Route>
             </Switch>
           </Router>
+          <img className="mode-toggle" onClick={(e) => this.toggleTheme(e)} src={flashlight} alt={'A flashlight'}></img>
         </div>
     );
   }
