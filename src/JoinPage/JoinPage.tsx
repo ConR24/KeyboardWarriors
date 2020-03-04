@@ -2,7 +2,7 @@ import React from 'react';
 import kbWarriorsLogo from "../resources/keyboardWarriorWhite.png";
 import logo from "../resources/keyboardWarriors.png";
 
-import './LeaderboardPage.css';
+import './JoinPage.css';
 import Form from 'react-bootstrap/Form';
 import Navbar from 'react-bootstrap/Navbar';
 import Row from 'react-bootstrap/Row'
@@ -27,8 +27,8 @@ export class JoinPage extends React.Component {
             </Navbar>
           </div>
           <div className="leaderboard-page-content">
-            <h1>Join A Room</h1>
             <Form>
+            <h1>Join A Room</h1>
               <Form.Group controlId="formUsername">
                 <Form.Label>Username</Form.Label>
                 <Form.Control type="username" placeholder="Enter Username"/>
@@ -38,12 +38,13 @@ export class JoinPage extends React.Component {
                 <Form.Label>Room Code</Form.Label>
                 <Form.Control placeholder="Enter Room Code"/>
               </Form.Group>
-            </Form>
 
-            <Row>
-              <Button variant="danger">Go Back</Button>
-              <Button variant="success">Continue</Button>
-            </Row>
+              <Row>
+                <Button variant="danger">Go Back</Button>
+                <Button variant="success">Continue</Button>
+              </Row>
+
+            </Form>
           </div>
         </div>  
       );

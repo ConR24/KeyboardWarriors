@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import TypingPage from "./TypingPage/TypingPage";
+import {JoinPage} from "./JoinPage/JoinPage";
 import {LandingPage} from "./LandingPage/LandingPage";
 import {LeaderboardPage} from "./LeaderboardPage/LeaderboardPage";
 import {
@@ -48,6 +49,9 @@ class App extends React.Component<MyProps, MyState> {
             </Route>
             <Route exact path={'/leaderboard'}>
               <LeaderboardPage />
+            </Route>
+            <Route exact path={'/join'}>
+              <JoinPage />
             </Route>
           </Switch>
         </Router>

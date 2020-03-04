@@ -7,6 +7,8 @@ import Col from "react-bootstrap/Col";
 import {Link} from 'react-router-dom';
 import "./index.css";
 
+import {RoomModal} from "../components/Room/RoomModal";
+
 export class LandingPage extends React.Component {
 
   componentDidMount() {
@@ -20,11 +22,9 @@ export class LandingPage extends React.Component {
         <h1 className="title">Keyboard Warriors</h1>
         <Row className="justify-content-md-center button-row">
           <Col xs={3} lg={2}>
-            <Link to="/fight">
-              <Button className="fight-button landing-button" variant="primary">
-                Fight!
-              </Button>
-            </Link>
+            <Button className="fight-button landing-button" variant="primary" >
+              Fight!
+            </Button>
           </Col>
           <Col xs={{span: 3, offset: 1}} lg={{span: 2, offset: 1}}>
             <Link to="/leaderboard">

@@ -11,6 +11,7 @@ import {Link} from 'react-router-dom';
 export interface RoomState{
     join: boolean;
     create: boolean;
+    show: boolean;
 }
 
 export interface RoomProps{
@@ -23,7 +24,8 @@ export class RoomModal extends React.Component<RoomProps, RoomState> {
 
         this.state = {
             join: false,
-            create: false
+            create: false,
+            show: false
         };
     }
 
@@ -41,6 +43,22 @@ export class RoomModal extends React.Component<RoomProps, RoomState> {
         });
     }
 
+    showModal = () => {
+        this.setState({
+            show: true,
+            create: false,
+            join: false
+        });
+    }
+
+    hideModal = () => {
+        this.setState({ 
+            show: false,
+            create: false,
+            join: false
+        });
+    }
+
     render(){
         return(
             <Modal show={true}>
@@ -52,7 +70,7 @@ export class RoomModal extends React.Component<RoomProps, RoomState> {
                     <h1 className="keyboard-warriors">Keyboard Warriors</h1>
                     <Row className="room-selection">
                         <Col className="join-container" xs={{span: 4, offset: 3}}>
-                            <Link to="/join_room">
+                            <Link to="/join">
                                 <Button variant="primary" className="join-room-button" onChange={(e: any) => this.handleJoinRequest(e)}>Join Room</Button>
                             </Link>
                         </Col>
