@@ -42,7 +42,6 @@ class App extends React.Component<MyProps, MyState> {
       dark: !this.state.dark
     }, () => {
       localStorage.setItem("darkMode", this.state.dark ? "true" : "false");
-      console.log(this.state.dark);
     });    
   }
 
