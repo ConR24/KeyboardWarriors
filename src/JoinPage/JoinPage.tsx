@@ -1,14 +1,14 @@
 import React from 'react';
 import kbWarriorsLogo from "../resources/keyboardWarriorWhite.png";
-import { Leaderboard } from '../components/Leaderboard/Leaderboard';
-import Navbar from 'react-bootstrap/Navbar';
-import Image from 'react-bootstrap/Image';
-
 import logo from "../resources/keyboardWarriors.png";
 
 import './LeaderboardPage.css';
+import Form from 'react-bootstrap/Form';
+import Navbar from 'react-bootstrap/Navbar';
+import Row from 'react-bootstrap/Row'
+import Button from 'react-bootstrap/Button'
 
-export class LeaderboardPage extends React.Component {
+export class JoinPage extends React.Component {
     render() {
       return (
         <div>
@@ -27,8 +27,23 @@ export class LeaderboardPage extends React.Component {
             </Navbar>
           </div>
           <div className="leaderboard-page-content">
-            <Image className="background-logo" src={logo} alt="A black and orange helmet" />
-            <Leaderboard/>
+            <h1>Join A Room</h1>
+            <Form>
+              <Form.Group controlId="formUsername">
+                <Form.Label>Username</Form.Label>
+                <Form.Control type="username" placeholder="Enter Username"/>
+              </Form.Group>
+
+              <Form.Group controlId="formRoomCode">
+                <Form.Label>Room Code</Form.Label>
+                <Form.Control placeholder="Enter Room Code"/>
+              </Form.Group>
+            </Form>
+
+            <Row>
+              <Button variant="danger">Go Back</Button>
+              <Button variant="success">Continue</Button>
+            </Row>
           </div>
         </div>  
       );
