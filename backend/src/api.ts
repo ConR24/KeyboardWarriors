@@ -65,7 +65,7 @@ sio.on('connection', (client: SocketIO.Socket) => {
  */
 function sortLeaderboard(){
   leaderboard.Player.sort(function(a: any, b: any){
-    return a.time - b.time;
+    return b.speed - a.speed;
 });
 }
 

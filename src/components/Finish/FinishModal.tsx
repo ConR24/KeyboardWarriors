@@ -3,7 +3,6 @@ import Modal from 'react-bootstrap/Modal'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import "./FinishModal.css";
-import good from "../../resources/goodJob.png";
 import bad from "../../resources/badJob.png";
 import Form from "react-bootstrap/Form";
 import Button from 'react-bootstrap/Button';
@@ -42,7 +41,7 @@ export class FinishModal extends React.Component<FinishProps,FinishState> {
             headers: {"Content-Type":"application/json"},
             body: JSON.stringify({
                 "name": this.state.name,
-                "time": this.props.speed,
+                "speed": this.props.speed,
                 "date string": new Date().toLocaleDateString("en-US")
             })
         }
