@@ -3,7 +3,6 @@ import Modal from 'react-bootstrap/Modal'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import "./FinishModal.css";
-import good from "../../resources/goodJob.png";
 import bad from "../../resources/badJob.png";
 import Form from "react-bootstrap/Form";
 import Button from 'react-bootstrap/Button';
@@ -26,6 +25,7 @@ export class FinishModal extends React.Component<FinishProps,FinishState> {
             name: ""
         };
         
+        this.sendStats = this.sendStats.bind(this);
     }
 
     handleFormChange(e: any){
@@ -34,6 +34,20 @@ export class FinishModal extends React.Component<FinishProps,FinishState> {
             name: playerName.substring(0,3).toUpperCase(),
         });
     };
+
+    sendStats() {
+        const params: RequestInit = {
+            method: "post",
+            headers: {"Content-Type":"application/json"},
+            body: JSON.stringify({
+                "name": this.state.name,
+                "speed": this.props.speed,
+                "date string": new Date().toLocaleDateString("en-US")
+            })
+        }
+
+        fetch("/player", params);
+    }
     
     render(){
         return(
@@ -58,7 +72,7 @@ export class FinishModal extends React.Component<FinishProps,FinishState> {
                         </Col>
                         <Col xs={6}>
                             <Link to="/leaderboard">
-                                <Button variant="primary" className="submit-button">Ok</Button>
+                                <Button onClick={this.sendStats} variant="primary" className="submit-button">Ok</Button>
                             </Link>
                         </Col>
                     </Row>

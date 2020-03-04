@@ -1,5 +1,6 @@
 import React from "react";
 import "./timer.css";
+import { msToTimeString } from "../../util";
 
 export interface TimerProps {};
 
@@ -36,13 +37,10 @@ class Timer extends React.Component<TimerProps, TimerState> {
     // increase the time of the timer and the timer label
     tick() {
         let newMils = this.state.time + 1;
-        let secs = Math.floor(newMils / 100);
-        let mins = Math.floor(secs / 60);
-        let secStr = ('0' + (secs % 60)).slice(-2);
-        let milStr = ('0' + (Math.ceil((newMils % 100) / 10) * 10)).slice(-2);
+        
         this.setState({
             time: newMils, 
-            timeInMins: "" + mins + ":" + secStr + ":" + milStr
+            timeInMins: msToTimeString(newMils)
         });
     }
 
