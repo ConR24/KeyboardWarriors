@@ -42,7 +42,7 @@ export class FinishModal extends React.Component<FinishProps,FinishState> {
             headers: {"Content-Type":"application/json"},
             body: JSON.stringify({
                 "name": this.state.name,
-                "time": this.props.speed,
+                "speed": this.props.speed,
                 "date string": new Date().toLocaleDateString("en-US")
             })
         }

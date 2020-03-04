@@ -1,5 +1,6 @@
 import React from 'react';
 import "./Insult.css";
+import e from 'express';
 
 export interface InsultProps {
     text: string;
@@ -16,6 +17,11 @@ export enum InsultState {
 
 // class representing an insult that a player is asked to type
 class Insult extends React.Component<InsultProps, {state: InsultState}> {
+    handleCopyAndPaste(e: React.ClipboardEvent<HTMLDivElement>){
+        e.preventDefault();
+        e.nativeEvent.stopImmediatePropagation();    
+    }
+
     render() {
         const {state} = this.props;
         let tags = <></>;
@@ -63,7 +69,7 @@ class Insult extends React.Component<InsultProps, {state: InsultState}> {
         }
 
         return (
-            <div className="insult">
+            <div onCopy={this.handleCopyAndPaste} onPaste={this.handleCopyAndPaste} className="insult">
                 {tags}
             </div>
         );
