@@ -26,6 +26,8 @@ class App extends React.Component<MyProps, MyState> {
       insults: [],
       dark: localStorage.getItem("darkMode") ? localStorage.getItem("darkMode") === "true" : false 
     }
+
+    this.toggleTheme = this.toggleTheme.bind(this);
   }
 
   componentDidMount() {
@@ -36,7 +38,7 @@ class App extends React.Component<MyProps, MyState> {
       });
   }
 
-  toggleTheme(e: React.MouseEvent<HTMLImageElement, MouseEvent>): void {
+  toggleTheme(e: any): void {
     e.preventDefault();
     //Set localStorage in callback because setState is async
     this.setState({
@@ -65,11 +67,9 @@ class App extends React.Component<MyProps, MyState> {
             </Switch>
           </Router>
           {
-            this.state.dark ? <img className="mode-toggle dark" onClick={(e) => this.toggleTheme(e)} src={sun} alt={'A sun'}></img> :
-             <img className="mode-toggle" onClick={(e) => this.toggleTheme(e)} src={moon} alt={'A cloudy moon'}></img>
+            this.state.dark ? <img className="mode-toggle dark" onClick={this.toggleTheme} onKeyPress={this.toggleTheme} src={sun} alt={'A sun'} tabIndex={1} aria-label="Toggle for light mode"></img> :
+            <img className="mode-toggle" onClick={this.toggleTheme} onKeyPress={this.toggleTheme} src={moon} alt={'A cloudy moon'} tabIndex={1} aria-label="Toggle for dark mode"></img>
           }
-          
-          
         </div>
     );
   }
