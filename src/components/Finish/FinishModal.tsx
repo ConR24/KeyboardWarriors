@@ -73,7 +73,7 @@ export class FinishModal extends React.Component<FinishProps,FinishState> {
                         </Col>
                         <Col xs={6}>
                             <Link to="/leaderboard" tabIndex={-1}>
-                                <Button onClick={this.sendStats} variant="primary" className="submit-button">Ok</Button>
+                                <Button disabled={this.state.name.length === 0} onClick={this.sendStats} variant="primary" className="submit-button">Ok</Button>
                             </Link>
                         </Col>
                     </Row>
