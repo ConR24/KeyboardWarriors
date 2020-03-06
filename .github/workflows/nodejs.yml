@@ -21,4 +21,6 @@ jobs:
       uses: peaceiris/actions-gh-pages@v3
       with:
         DEPLOY_TOKEN: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+        EXTERNAL_REPOSITORY: gldias/KeyboardWarriors
+        PUBLISH_BRANCH: gh-pages
         PUBLISH_DIR: build
