@@ -11,11 +11,10 @@ import {Link} from 'react-router-dom';
 export interface RoomState{
     join: boolean;
     create: boolean;
-    show: boolean;
 }
 
 export interface RoomProps{
-    active: boolean
+    show: boolean;
 }
 
 export class RoomModal extends React.Component<RoomProps, RoomState> {
@@ -24,8 +23,7 @@ export class RoomModal extends React.Component<RoomProps, RoomState> {
 
         this.state = {
             join: false,
-            create: false,
-            show: false
+            create: false
         };
     }
 
@@ -42,26 +40,11 @@ export class RoomModal extends React.Component<RoomProps, RoomState> {
             join: false
         });
     }
-
-    showModal = () => {
-        this.setState({
-            show: true,
-            create: false,
-            join: false
-        });
-    }
-
-    hideModal = () => {
-        this.setState({ 
-            show: false,
-            create: false,
-            join: false
-        });
-    }
+    
 
     render(){
         return(
-            <Modal show={true}>
+            <Modal show={this.props.show}>
                 <Modal.Body>
                     <img className="keyboard-logo"
                         alt="Keyboard Warriors Logo."

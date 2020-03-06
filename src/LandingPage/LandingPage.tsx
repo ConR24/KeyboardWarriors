@@ -9,7 +9,20 @@ import "./index.css";
 
 import {RoomModal} from "../components/Room/RoomModal";
 
-export class LandingPage extends React.Component {
+export interface LandingPageState{
+  show: boolean;
+}
+
+export interface LandingPageProps{}
+
+export class LandingPage extends React.Component<LandingPageProps, LandingPageState> {
+  constructor(props: LandingPageProps){
+    super(props);
+
+    this.state = {
+        show: false
+    };
+}
 
   componentDidMount() {
     document.title = "Keyboard Warriors";
@@ -18,11 +31,12 @@ export class LandingPage extends React.Component {
   render() {
     return (
       <Container className="landing-container">
+        <RoomModal show={this.state.show} />
         <img className="logo" src={kbWarriorsLogo} alt="A black and orange helmet"/>
         <h1 className="title">Keyboard Warriors</h1>
         <Row className="justify-content-md-center button-row">
           <Col xs={3} lg={2}>
-            <Button className="fight-button landing-button" variant="primary" >
+            <Button className="fight-button landing-button" variant="primary" onClick={() => {this.setState({show: true})}}>
               Fight!
             </Button>
           </Col>
