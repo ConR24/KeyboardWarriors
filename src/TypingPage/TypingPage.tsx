@@ -12,6 +12,7 @@ import "./typingPage.css";
 
 export interface TypingProps {
     insults: string[];
+    dark: boolean;
 }
 
 export interface TypingState {
@@ -61,6 +62,11 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
         }
     }
 
+    handleCopyAndPaste(e: React.ClipboardEvent<HTMLInputElement>): void {
+        e.preventDefault();
+        e.nativeEvent.stopImmediatePropagation();
+    }
+
     render() {
         const {currentInsult, typedText} = this.state;
         
@@ -80,11 +86,12 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
                 </Navbar>
                 {/* Calculate typing speed by joining array into string and dividing it by time */}
                 {this.state.isFinished && <FinishModal 
-                    time={this._timer.current!.getTimeString()} 
+                    time={this._timer.current!.getTimeString()}
+                    dark={this.props.dark}
                     speed={Number((this.props.insults.join().length / (this._timer.current!.getTime() / 100)).toFixed(2))} 
                 />}
                 <Container className="typing-container">
-                    <Timer ref={this._timer}/>
+                    <Timer dark={this.props.dark} ref={this._timer}/>
                     {this.props.insults.map((insult, index) => {
                         let state = (index < currentInsult ? InsultState.COMPLETE 
                             : (index === currentInsult ? InsultState.CURRENT : InsultState.UPCOMING));
@@ -93,8 +100,11 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
                     <Row className="justify-content-md-center input-box" tabIndex={-1}>
                         <input
                             autoFocus
+                            className={this.props.dark ? "dark-input" : ""}
                             onChange={this.textChanged}
                             value={typedText}
+                            onCopy={this.handleCopyAndPaste} 
+                            onPaste={this.handleCopyAndPaste}
                             aria-label={this.props.insults.toString()}
                             tabIndex={1}
                         />
