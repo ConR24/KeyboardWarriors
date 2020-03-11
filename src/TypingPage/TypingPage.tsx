@@ -14,6 +14,7 @@ import "./typingPage.css";
 
 export interface TypingProps {
     insults: string[];
+    dark: boolean;
 }
 
 export interface TypingState {
@@ -74,8 +75,8 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
         
         return (
             <div>
-                <Navbar bg="dark" variant="dark">
-                    <Navbar.Brand href={process.env.PUBLIC_URL}>
+                <Navbar bg="dark" variant="dark" tabIndex={-1}>
+                    <Navbar.Brand href={process.env.PUBLIC_URL} tabIndex={1} aria-label="Back to home page">
                         <img
                             alt="Keyboard Warriors"
                             src={logo}
@@ -88,24 +89,28 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
                 </Navbar>
                 {/* Calculate typing speed by joining array into string and dividing it by time */}
                 {this.state.isFinished && <FinishModal 
-                    time={this._timer.current!.getTimeString()} 
+                    time={this._timer.current!.getTimeString()}
+                    dark={this.props.dark}
                     speed={Number((this.props.insults.join().length / (this._timer.current!.getTime() / 100)).toFixed(2))} 
                 />}
                 <Container className="typing-container">
-                    <Timer ref={this._timer}/>
+                    <Timer dark={this.props.dark} ref={this._timer}/>
                     <InsultsBox name="RJC" insult="Your Mother was a hamster and your father smelled of elderberries." />
                     {this.props.insults.map((insult, index) => {
                         let state = (index < currentInsult ? InsultState.COMPLETE 
                             : (index === currentInsult ? InsultState.CURRENT : InsultState.UPCOMING));
-                        return <Insult key={insult} text={insult} state={state} typedText={typedText} />
+                        return <Insult key={insult} text={insult} state={state} typedText={typedText}/>
                     })}
-                    <Row className="justify-content-md-center input-box">
+                    <Row className="justify-content-md-center input-box" tabIndex={-1}>
                         <input
                             autoFocus
+                            className={this.props.dark ? "dark-input" : ""}
                             onChange={this.textChanged}
                             value={typedText}
                             onCopy={this.handleCopyAndPaste} 
                             onPaste={this.handleCopyAndPaste}
+                            aria-label={this.props.insults.toString()}
+                            tabIndex={1}
                         />
                     </Row>
                 </Container>
