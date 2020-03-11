@@ -5,6 +5,8 @@ import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Timer from "../components/Timer/Timer";
 import { FinishModal } from "../components/Finish/FinishModal";
+import {sendInsult, listenForInsults} from "../scripts/socket";
+import { InsultsBox } from "../components/InsultsBox/InsultsBox";
 
 import logo from "../resources/keyboardWarriorWhite.png";
 
@@ -46,6 +48,7 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
 
         // determine if insult is complete
         if(currentText === this.props.insults[currentInsult]) {
+            sendInsult("1234", this.props.insults[currentInsult]);
             this.setState({
                 currentInsult: currentInsult + 1,
                 typedText: ""
@@ -90,6 +93,7 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
                 />}
                 <Container className="typing-container">
                     <Timer ref={this._timer}/>
+                    <InsultsBox name="RJC" insult="Your Mother was a hamster and your father smelled of elderberries." />
                     {this.props.insults.map((insult, index) => {
                         let state = (index < currentInsult ? InsultState.COMPLETE 
                             : (index === currentInsult ? InsultState.CURRENT : InsultState.UPCOMING));
