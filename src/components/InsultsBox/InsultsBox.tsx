@@ -4,32 +4,22 @@ import './InsultsBox.css';
 export interface InsultsProps {
     name: String;
     insult: String;
+    show: boolean;
 }
 
-export interface InsultsState {
-    name: String;
-    insult: String;
-}
-
-export class InsultsBox extends React.Component<InsultsProps, InsultsState> {
-    constructor(props: InsultsProps) {
-        super(props);
-
-        this.state = {
-            name: this.props.name,
-            insult: this.props.insult
-        };
-    }
-
+export class InsultsBox extends React.Component<InsultsProps> {
     render() {
+      const show:boolean = this.props.show;
       return (
-        <div className="insults-box">
-            <div className="insults-box-content">
-                <h4>{ this.state.name } says:</h4>
-                <p>{ this.state.insult }</p>
-            </div>    
+        <div className={"insults-box " + (show ? "show" : "")}>
+            {this.props.show ? (
+                <div className="insults-box-content">
+                    <h4>{ this.props.name } says:</h4>
+                    <p>{ this.props.insult }</p>
+                </div> )   
+            : (<></>) }
         </div>
-      );
+    );
     }
 }
 

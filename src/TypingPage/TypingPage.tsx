@@ -21,6 +21,7 @@ export interface TypingState {
     currentInsult: number;
     typedText: string;
     isFinished: boolean;
+    insult: String;
 }
 
 // game page where players type insults as quickly as possible
@@ -33,11 +34,16 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
         this.state = {
             currentInsult: 0,
             typedText: "",
-            isFinished: false
+            isFinished: false,
+            insult: ""
         };
 
         this._timer = React.createRef();
         this.textChanged = this.textChanged.bind(this);
+        this.onReceiveInsult = this.onReceiveInsult.bind(this);
+
+        //setup insult callback
+        listenForInsults(this.onReceiveInsult);
     }
 
     // handles change of text in text box
@@ -49,7 +55,7 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
 
         // determine if insult is complete
         if(currentText === this.props.insults[currentInsult]) {
-            sendInsult("1234", this.props.insults[currentInsult]);
+            sendInsult("1234", this.props.insults[currentInsult]); // TODO: update when room number is stored
             this.setState({
                 currentInsult: currentInsult + 1,
                 typedText: ""
@@ -68,6 +74,11 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
     handleCopyAndPaste(e: React.ClipboardEvent<HTMLInputElement>): void {
         e.preventDefault();
         e.nativeEvent.stopImmediatePropagation();
+    }
+
+    onReceiveInsult(insult:String) {
+        this.setState({insult: insult});
+        setTimeout(() => { this.setState({insult: ""}); }, 5000);
     }
 
     render() {
@@ -95,7 +106,7 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
                 />}
                 <Container className="typing-container">
                     <Timer dark={this.props.dark} ref={this._timer}/>
-                    <InsultsBox name="RJC" insult="Your Mother was a hamster and your father smelled of elderberries." />
+                    <InsultsBox show={this.state.insult !== ""} name="Opponent" insult={this.state.insult} />
                     {this.props.insults.map((insult, index) => {
                         let state = (index < currentInsult ? InsultState.COMPLETE 
                             : (index === currentInsult ? InsultState.CURRENT : InsultState.UPCOMING));
