@@ -12,3 +12,7 @@
     color: var(--darkGrey);
     font-size: 1em;
 }
+
+.dark-timer{
+    color:white;
+}

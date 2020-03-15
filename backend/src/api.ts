@@ -12,8 +12,8 @@ const sio = require('socket.io')(server);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const insults = require('../../src/resources/insults.json');
-let leaderboard = require('../../src/resources/leaderboard.json');
+const insults = require('../src/resources/insults.json');
+let leaderboard = require('../src/resources/leaderboard.json');
 
 // Define Socket.IO functions
 sio.on('connection', (client: SocketIO.Socket) => {

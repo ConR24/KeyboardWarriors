@@ -11,6 +11,7 @@ import {Link} from 'react-router-dom';
 export interface FinishProps{
     speed: number;
     time: string;
+    dark: boolean;
 }
 
 export interface FinishState{
@@ -52,13 +53,13 @@ export class FinishModal extends React.Component<FinishProps,FinishState> {
     render(){
         return(
             <Modal show={true}>
-                <Modal.Body>
+                <Modal.Body className={this.props.dark ? "dark-modal" : ""}>
                     <img className="finish"
                         alt="Try harder."
-                        src={bad}                    
+                        src={bad}
                     ></img>
-                    <h1 className="try-harder">Try Harder.</h1>
-                    <Row className="results">
+                    <h1 className="try-harder" tabIndex={1}>Try Harder.</h1>
+                    <Row className="results"  tabIndex={1} aria-label={"Speed: " + this.props.speed + "characters per second. Time: " + this.props.time}>
                         <Col xs={6}>
                             <h4 className="result-column"><b>Speed:</b> {`${this.props.speed} char/sec`}</h4>
                         </Col>
@@ -68,11 +69,11 @@ export class FinishModal extends React.Component<FinishProps,FinishState> {
                     </Row>
                     <Row className="results">
                         <Col xs={6}>
-                            <Form.Control placeholder="Name" onChange={(e: any) => this.handleFormChange(e)} value={this.state.name} />
+                            <Form.Control className={this.props.dark ? "dark-input" : ""} placeholder="Name" onChange={(e: any) => this.handleFormChange(e)} value={this.state.name} />
                         </Col>
                         <Col xs={6}>
-                            <Link to="/leaderboard">
-                                <Button onClick={this.sendStats} variant="primary" className="submit-button">Ok</Button>
+                            <Link to="/leaderboard" tabIndex={-1}>
+                                <Button disabled={this.state.name.length === 0} onClick={this.sendStats} variant="primary" className="submit-button">Ok</Button>
                             </Link>
                         </Col>
                     </Row>
