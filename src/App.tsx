@@ -4,6 +4,7 @@ import TypingPage from "./TypingPage/TypingPage";
 import {JoinPage} from "./JoinPage/JoinPage";
 import {LandingPage} from "./LandingPage/LandingPage";
 import {LeaderboardPage} from "./LeaderboardPage/LeaderboardPage";
+import {CreateRoomPage} from "./CreateRoomPage/CreateRoomPage";
 import sun from "./resources/sun.svg";
 import moon from "./resources/night.svg";
 import {
@@ -70,6 +71,9 @@ class App extends React.Component<MyProps, MyState> {
               </Route>
               <Route exact path={'/join'}>
                 <JoinPage dark={this.state.dark} />
+              </Route>
+              <Route exact path={'/create_room'}>
+                <CreateRoomPage dark={this.state.dark}></CreateRoomPage>
               </Route>
             </Switch>
           </Router>

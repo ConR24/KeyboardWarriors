@@ -18,3 +18,13 @@
     justify-content: space-between;
     padding: 10px 15px;
 }
+
+.error{
+    margin-right:10px;
+    font-size: initial;
+}
+
+.success{
+    margin-right:10px;
+    font-size: initial;
+}

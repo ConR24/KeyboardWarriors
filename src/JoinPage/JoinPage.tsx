@@ -2,6 +2,7 @@ import React from 'react';
 import kbWarriorsLogo from "../resources/keyboardWarriorWhite.png";
 import {Link} from 'react-router-dom';
 import {joinRoom} from '../scripts/socket';
+import Alert from 'react-bootstrap/Alert';
 
 import './JoinPage.css';
 import Form from 'react-bootstrap/Form';
@@ -53,9 +54,9 @@ export class JoinPage extends React.Component<JoinPageProps, JoinPageState> {
 
     }
 
-    err() {
+    err(err: string) {
       // show room is full
-      this.setState({error: "The selected room is full."});
+      this.setState({error: err});
       setTimeout(() => { this.setState({error: ""}); }, 5000);
     }
 
@@ -77,7 +78,7 @@ export class JoinPage extends React.Component<JoinPageProps, JoinPageState> {
             </Navbar>
           </div>
           <div className="join-page-content">
-            {this.state.error ? <div className="error">{this.state.error}</div> : ""}
+            {this.state.error ? <Alert variant="warning" className="error"><Alert.Heading>Error!</Alert.Heading>{this.state.error}</Alert> : ""}
             <Form>
             <h1>Join A Room</h1>
               <Form.Group controlId="formUsername">
@@ -94,7 +95,7 @@ export class JoinPage extends React.Component<JoinPageProps, JoinPageState> {
                 <Link to="/">
                   <Button variant="danger">Go Back</Button>
                 </Link>
-                <Button variant="success" onClick={() => { joinRoom(this.state.room, this.toWaiting, this.err); }}>Join</Button>
+                <Button variant="success" onClick={() => { joinRoom(this.state.room, () => this.toWaiting(), (err: string) => this.err(err)); }}>Join</Button>
               </Row>
 
             </Form>

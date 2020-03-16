@@ -23,7 +23,7 @@ sio.on('connection', (client: SocketIO.Socket) => {
   client.on('joinRoom', (roomCode: string) => {
     const room = sio.nsps['/'].adapter.rooms[roomCode];
     if (!room) {
-      client.join(roomCode);
+      client.emit('roomDoesNotExist');
     } else if (room && room.length < 2) {
       client.join(roomCode);
       if (room.length === 2) {
@@ -33,6 +33,19 @@ sio.on('connection', (client: SocketIO.Socket) => {
       client.emit('roomIsFull');
     }
   });
+
+  /**
+   * Join a room with a room code. Only joins if that room does not exist.
+   */
+  client.on('createRoom', (roomCode: string) => {
+    const room = sio.nsps['/'].adapter.rooms[roomCode];
+    if (!room) {
+      client.join(roomCode);
+      client.emit('connectToRoom');
+    } else {
+      client.emit('roomExists');
+    }
+  })
 
   /**
    * Send an insult to everyone else in  the room

@@ -1,32 +1,35 @@
 import React from 'react';
 import kbWarriorsLogo from "../resources/keyboardWarriorWhite.png";
 import {Link} from 'react-router-dom';
-import {joinRoom} from '../scripts/socket';
+import {createRoom} from '../scripts/socket';
+import Alert from 'react-bootstrap/Alert';
 
-import './JoinPage.css';
+import './CreateRoomPage.css';
 import Form from 'react-bootstrap/Form';
 import Navbar from 'react-bootstrap/Navbar';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 
-export interface JoinPageProps {
+export interface CreateRoomPageProps {
   dark: boolean;
 }
 
-export interface JoinPageState {
+export interface CreateRoomPageState {
   room: string;
   user: string;
   error: string;
+  success: string;
 }
 
-export class JoinPage extends React.Component<JoinPageProps, JoinPageState> {
-    constructor(props: JoinPageProps) {
+export class CreateRoomPage extends React.Component<CreateRoomPageProps, CreateRoomPageState> {
+    constructor(props: CreateRoomPageProps) {
       super(props);
 
       this.state = {
         room: "",
         user: "",
-        error: "a"
+        error: "",
+        success: ""
       };
 
       this.changeUsername = this.changeUsername.bind(this);
@@ -43,6 +46,9 @@ export class JoinPage extends React.Component<JoinPageProps, JoinPageState> {
 
     // show waiting modal
     toWaiting() {
+      this.setState({success: "Created the room!"});
+      setTimeout(() => { this.setState({success: ""}); }, 5000);
+
       console.log(this.state.room);
       console.log(this.state.user);
     }
@@ -52,9 +58,9 @@ export class JoinPage extends React.Component<JoinPageProps, JoinPageState> {
 
     }
 
-    err() {
+    err(err: string) {
       // show room is full
-      this.setState({error: "The selected room is full."});
+      this.setState({error: err});
       setTimeout(() => { this.setState({error: ""}); }, 5000);
     }
 
@@ -76,7 +82,9 @@ export class JoinPage extends React.Component<JoinPageProps, JoinPageState> {
             </Navbar>
           </div>
           <div className="join-page-content">
-            {this.state.error ? <div className="error">{this.state.error}</div> : ""}
+            {this.state.error ? <Alert variant="warning" className="error"><Alert.Heading>Error!</Alert.Heading>{this.state.error}</Alert> : ""}
+            {this.state.success ? <Alert variant="success" className="success"><Alert.Heading>Success!</Alert.Heading>{this.state.success}</Alert> : ""}
+
             <Form>
             <h1>Create A Room</h1>
               <Form.Group controlId="formRoomCode">
@@ -88,12 +96,12 @@ export class JoinPage extends React.Component<JoinPageProps, JoinPageState> {
                 <Link to="/">
                   <Button variant="danger">Go Back</Button>
                 </Link>
-                <Button variant="success" onClick={() => { joinRoom(this.state.room, this.toWaiting, this.err); }}>Create</Button>
+                <Button variant="success" onClick={() => { createRoom(this.state.room, () => this.toWaiting(), (err: string) => this.err(err))}}>Create</Button>
               </Row>
 
             </Form>
           </div>
-        </div>  
+        </div>
       );
     }
   }
