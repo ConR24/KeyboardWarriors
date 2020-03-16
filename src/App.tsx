@@ -62,6 +62,9 @@ class App extends React.Component<MyProps, MyState> {
               <Route exact path={'/fight'}>
                 <TypingPage dark={this.state.dark} insults={this.state.insults} />
               </Route>
+              <Route exact path={'/join'}>
+                <JoinPage dark={this.state.dark} />
+              </Route>
               <Route exact path={'/leaderboard'}>
                 <LeaderboardPage dark={this.state.dark} />
               </Route>

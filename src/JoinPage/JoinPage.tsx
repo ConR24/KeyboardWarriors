@@ -1,14 +1,34 @@
 import React from 'react';
 import kbWarriorsLogo from "../resources/keyboardWarriorWhite.png";
 import logo from "../resources/keyboardWarriors.png";
+import {Link} from 'react-router-dom';
+import {joinRoom} from '../scripts/socket';
 
 import './JoinPage.css';
 import Form from 'react-bootstrap/Form';
 import Navbar from 'react-bootstrap/Navbar';
-import Row from 'react-bootstrap/Row'
-import Button from 'react-bootstrap/Button'
+import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
 
-export class JoinPage extends React.Component {
+export interface JoinPageProps {
+  dark: boolean;
+}
+
+export interface JoinPageState {
+  room: string;
+  user: string;
+}
+
+export class JoinPage extends React.Component<JoinPageProps, JoinPageState> {
+    constructor(props: JoinPageProps) {
+      super(props);
+
+      this.state = {
+        room: "",
+        user: ""
+      };
+    }
+
     render() {
       return (
         <div>
@@ -39,9 +59,11 @@ export class JoinPage extends React.Component {
                 <Form.Control placeholder="Enter Room Code"/>
               </Form.Group>
 
-              <Row>
-                <Button variant="danger">Go Back</Button>
-                <Button variant="success">Continue</Button>
+              <Row className="buttons">
+                <Link to="/">
+                  <Button variant="danger">Go Back</Button>
+                </Link>
+                <Button variant="success" onClick={joinRoom(this.state.room, this.toWaiting, this.err)}>Join</Button>
               </Row>
 
             </Form>

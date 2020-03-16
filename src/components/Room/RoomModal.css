@@ -1,3 +1,7 @@
+.modal-content {
+    padding: 50px 0;
+}
+
 .keyboard-logo {
     max-height: 150px;
     margin: auto;
@@ -13,6 +17,11 @@
     width: 90% !important;
     margin: auto !important;
     margin-top: 1rem !important;
+    justify-content: center;
+}
+
+.room-selection div a button {
+    width: 100%;
 }
 
 .create-container{
@@ -26,7 +35,6 @@
 .join-room-button{
     background-color: var(--brightOrange) !important;
     border-color: var(--brightOrange) !important;
-    width: 50%;
     margin: auto;
     color:black !important;
     font-size: large !important;
@@ -35,7 +43,6 @@
 .create-room-button{
     background-color: var(--lightOrange) !important;
     border-color: var(--lightOrange) !important;
-    width: 45%;
     margin: auto;
     color:black !important;
     font-size: large !important;
