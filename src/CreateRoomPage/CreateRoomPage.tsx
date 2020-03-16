@@ -26,7 +26,7 @@ export class JoinPage extends React.Component<JoinPageProps, JoinPageState> {
       this.state = {
         room: "",
         user: "",
-        error: ""
+        error: "a"
       };
 
       this.changeUsername = this.changeUsername.bind(this);
@@ -47,7 +47,6 @@ export class JoinPage extends React.Component<JoinPageProps, JoinPageState> {
       console.log(this.state.user);
     }
 
-    // TODO: try to use callback for when someone else joined room
     // send to fight page after storing info ab room and username
     toFight() {
 
@@ -79,12 +78,7 @@ export class JoinPage extends React.Component<JoinPageProps, JoinPageState> {
           <div className="join-page-content">
             {this.state.error ? <div className="error">{this.state.error}</div> : ""}
             <Form>
-            <h1>Join A Room</h1>
-              <Form.Group controlId="formUsername">
-                <Form.Label>Username</Form.Label>
-                <Form.Control type="username" placeholder="Enter Username" onChange={this.changeUsername}/>
-              </Form.Group>
-
+            <h1>Create A Room</h1>
               <Form.Group controlId="formRoomCode">
                 <Form.Label>Room Code</Form.Label>
                 <Form.Control placeholder="Enter Room Code" onChange={this.changeRoom}/>
@@ -94,7 +88,7 @@ export class JoinPage extends React.Component<JoinPageProps, JoinPageState> {
                 <Link to="/">
                   <Button variant="danger">Go Back</Button>
                 </Link>
-                <Button variant="success" onClick={() => { joinRoom(this.state.room, this.toWaiting, this.err); }}>Join</Button>
+                <Button variant="success" onClick={() => { joinRoom(this.state.room, this.toWaiting, this.err); }}>Create</Button>
               </Row>
 
             </Form>
