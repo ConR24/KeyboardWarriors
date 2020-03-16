@@ -17,6 +17,7 @@ export interface JoinPageProps {
 export interface JoinPageState {
   room: string;
   user: string;
+  error: string;
 }
 
 export class JoinPage extends React.Component<JoinPageProps, JoinPageState> {
@@ -25,8 +26,32 @@ export class JoinPage extends React.Component<JoinPageProps, JoinPageState> {
 
       this.state = {
         room: "",
-        user: ""
+        user: "",
+        error: ""
       };
+
+      this.changeUsername = this.changeUsername.bind(this);
+      this.changeRoom = this.changeRoom.bind(this);
+    }
+
+    changeUsername(e: React.FormEvent<HTMLInputElement>) {
+      this.setState({user: e.currentTarget.value});
+    }
+
+    changeRoom(e: React.FormEvent<HTMLInputElement>) {
+      this.setState({room: e.currentTarget.value});
+    }
+
+    // send to waiting page after storing info ab room and username
+    toWaiting() {
+      console.log(this.state.room);
+      console.log(this.state.user);
+    }
+
+    err() {
+      // show room is full
+      this.setState({error: "The selected room is full."});
+      setTimeout(() => { this.setState({error: ""}); }, 5000);
     }
 
     render() {
@@ -47,23 +72,24 @@ export class JoinPage extends React.Component<JoinPageProps, JoinPageState> {
             </Navbar>
           </div>
           <div className="join-page-content">
+            {this.state.error ? <div className="error">{this.state.error}</div> : ""}
             <Form>
             <h1>Join A Room</h1>
               <Form.Group controlId="formUsername">
                 <Form.Label>Username</Form.Label>
-                <Form.Control type="username" placeholder="Enter Username"/>
+                <Form.Control type="username" placeholder="Enter Username" onChange={this.changeUsername}/>
               </Form.Group>
 
               <Form.Group controlId="formRoomCode">
                 <Form.Label>Room Code</Form.Label>
-                <Form.Control placeholder="Enter Room Code"/>
+                <Form.Control placeholder="Enter Room Code" onChange={this.changeRoom}/>
               </Form.Group>
 
               <Row className="buttons">
                 <Link to="/">
                   <Button variant="danger">Go Back</Button>
                 </Link>
-                <Button variant="success" onClick={joinRoom(this.state.room, this.toWaiting, this.err)}>Join</Button>
+                <Button variant="success" onClick={() => { joinRoom(this.state.room, this.toWaiting, this.err); }}>Join</Button>
               </Row>
 
             </Form>

@@ -69,7 +69,7 @@ class App extends React.Component<MyProps, MyState> {
                 <LeaderboardPage dark={this.state.dark} />
               </Route>
               <Route exact path={'/join'}>
-                <JoinPage />
+                <JoinPage dark={this.state.dark} />
               </Route>
             </Switch>
           </Router>
