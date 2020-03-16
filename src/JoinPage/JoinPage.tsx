@@ -46,7 +46,7 @@ export class JoinPage extends React.Component<JoinPageProps, JoinPageState> {
               </Navbar.Brand>
             </Navbar>
           </div>
-          <div className="leaderboard-page-content">
+          <div className="join-page-content">
             <Form>
             <h1>Join A Room</h1>
               <Form.Group controlId="formUsername">
