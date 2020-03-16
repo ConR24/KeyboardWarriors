@@ -14,7 +14,9 @@ export interface LandingPageState{
   show: boolean;
 }
 
-export interface LandingPageProps{}
+export interface LandingPageProps{
+  dark: boolean;
+}
 
 export class LandingPage extends React.Component<LandingPageProps, LandingPageState> {
   constructor(props: LandingPageProps){

@@ -1,15 +1,5 @@
-.leaderboard-page-content {
+.join-page-content {
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.background-logo{
-    display: block;
-    position: fixed;
-    margin: auto;
-    top: 50%;
-    bottom: 50%;
-    height: 19em;
-    opacity: 0.07;
 }
