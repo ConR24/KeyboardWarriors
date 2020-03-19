@@ -81,11 +81,6 @@ export class JoinPage extends React.Component<JoinPageProps, JoinPageState> {
             {this.state.error ? <Alert variant="warning" className="error"><Alert.Heading>Error!</Alert.Heading>{this.state.error}</Alert> : ""}
             <Form>
             <h1>Join A Room</h1>
-              <Form.Group controlId="formUsername">
-                <Form.Label>Username</Form.Label>
-                <Form.Control type="username" placeholder="Enter Username" onChange={this.changeUsername}/>
-              </Form.Group>
-
               <Form.Group controlId="formRoomCode">
                 <Form.Label>Room Code</Form.Label>
                 <Form.Control placeholder="Enter Room Code" onChange={this.changeRoom}/>
