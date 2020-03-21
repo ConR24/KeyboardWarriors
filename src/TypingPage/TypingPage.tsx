@@ -5,6 +5,8 @@ import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Timer from "../components/Timer/Timer";
 import { FinishModal } from "../components/Finish/FinishModal";
+import {sendInsult, listenForInsults, leaveRoom} from "../scripts/socket";
+import { InsultsBox } from "../components/InsultsBox/InsultsBox";
 
 import logo from "../resources/keyboardWarriorWhite.png";
 
@@ -20,6 +22,7 @@ export interface TypingState {
     currentInsult: number;
     typedText: string;
     isFinished: boolean;
+    insult: String;
 }
 
 // game page where players type insults as quickly as possible
@@ -32,11 +35,18 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
         this.state = {
             currentInsult: 0,
             typedText: "",
-            isFinished: false
+            isFinished: false,
+            insult: ""
         };
 
         this._timer = React.createRef();
         this.textChanged = this.textChanged.bind(this);
+        this.onReceiveInsult = this.onReceiveInsult.bind(this);
+    }
+
+    componentDidMount() {
+        //setup insult callback
+        listenForInsults(this.onReceiveInsult);
     }
 
     // handles change of text in text box
@@ -48,6 +58,7 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
 
         // determine if insult is complete
         if(currentText === this.props.insults[currentInsult]) {
+            sendInsult(this.props.roomCode, this.props.insults[currentInsult]);
             this.setState({
                 currentInsult: currentInsult + 1,
                 typedText: ""
@@ -68,8 +79,18 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
         e.nativeEvent.stopImmediatePropagation();
     }
 
+    onReceiveInsult(insult: String) {
+        // ensure player is not shown their own insults
+        if(insult !== this.props.insults[this.state.currentInsult - 1])
+        {
+            this.setState({insult: insult});
+            setTimeout(() => { this.setState({insult: ""}); }, 5000);
+        }
+    }
+
     componentWillUnmount() {
         this._timer.current!.stop();
+        leaveRoom(this.props.roomCode);
     }
 
     render() {
@@ -97,6 +118,7 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
                 />}
                 <Container className="typing-container">
                     <Timer dark={this.props.dark} ref={this._timer}/>
+                    <InsultsBox show={this.state.insult !== ""} name="Opponent" insult={this.state.insult} />
                     {this.props.insults.map((insult, index) => {
                         let state = (index < currentInsult ? InsultState.COMPLETE 
                             : (index === currentInsult ? InsultState.CURRENT : InsultState.UPCOMING));

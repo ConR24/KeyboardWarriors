@@ -35,7 +35,7 @@ function createRoom(roomCode: string, opponentJoined: any, success: any, errCB: 
  * @param cb The callback for when the opponent completes an insult
  */
 function listenForInsults(cb: any) {
-    socket.on('incomingInsult', (incoming: string) => cb(null, incoming));
+    socket.on('incomingInsult', (incoming: string) => { cb(incoming); });
 }
 
 /**
@@ -61,6 +61,7 @@ function sendInsult(roomCode: string, insult: string) {
  */
 function leaveRoom(roomCode: string) {
     socket.emit('leaveRoom', roomCode);
+    socket.removeAllListeners();
 }
 
 export { 
