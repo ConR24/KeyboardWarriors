@@ -52,8 +52,6 @@ sio.on('connection', (client: SocketIO.Socket) => {
    * Send an insult to everyone else in  the room
    */
   client.on('sendInsult', (roomCode: string, insult: string) => {
-    console.log(insult);
-    console.log(roomCode);
     sio.to(roomCode).emit('incomingInsult', insult);
   });
 
