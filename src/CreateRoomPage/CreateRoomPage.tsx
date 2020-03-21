@@ -1,14 +1,12 @@
 import React from 'react';
+import {Redirect} from 'react-router';
 import kbWarriorsLogo from "../resources/keyboardWarriorWhite.png";
-import {Link} from 'react-router-dom';
 import {createRoom} from '../scripts/socket';
-import Alert from 'react-bootstrap/Alert';
+import WaitModal from "../components/WaitForPlayer/WaitModal";
 
 import './CreateRoomPage.css';
 import Form from 'react-bootstrap/Form';
 import Navbar from 'react-bootstrap/Navbar';
-import Row from 'react-bootstrap/Row';
-import Button from 'react-bootstrap/Button';
 
 export interface CreateRoomPageProps {
   dark: boolean;
@@ -16,9 +14,7 @@ export interface CreateRoomPageProps {
 
 export interface CreateRoomPageState {
   room: string;
-  user: string;
-  error: string;
-  success: string;
+  redirect: boolean;
 }
 
 export class CreateRoomPage extends React.Component<CreateRoomPageProps, CreateRoomPageState> {
@@ -27,30 +23,31 @@ export class CreateRoomPage extends React.Component<CreateRoomPageProps, CreateR
 
       this.state = {
         room: "",
-        user: "",
-        error: "",
-        success: ""
+        redirect: false
       };
 
-      this.changeUsername = this.changeUsername.bind(this);
-      this.changeRoom = this.changeRoom.bind(this);
+      this.makeRoom = this.makeRoom.bind(this);
     }
 
-    changeUsername(e: React.FormEvent<HTMLInputElement>) {
-      this.setState({user: e.currentTarget.value});
+    componentDidMount() {
+      this.makeRoom();
     }
 
-    changeRoom(e: React.FormEvent<HTMLInputElement>) {
-      this.setState({room: e.currentTarget.value});
-    }
+    // create a room code
+    makeRoom() {
+      // create random code
+      let roomCode = "";
+      const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    // show waiting modal
-    toWaiting() {
-      this.setState({success: "Created the room!"});
-      setTimeout(() => { this.setState({success: ""}); }, 5000);
+      for(let i = 0; i < 5; i++) {
+        roomCode += characters.charAt(Math.floor(Math.random() * characters.length));
+      }
 
-      console.log(this.state.room);
-      console.log(this.state.user);
+      //try code
+      createRoom(roomCode, () => {
+        //opponent joined
+        this.setState({redirect: true})
+      }, () => {this.setState({room: roomCode});}, this.makeRoom);
     }
 
     // send to fight page after storing info ab room and username
@@ -58,13 +55,10 @@ export class CreateRoomPage extends React.Component<CreateRoomPageProps, CreateR
 
     }
 
-    err(err: string) {
-      // show room is full
-      this.setState({error: err});
-      setTimeout(() => { this.setState({error: ""}); }, 5000);
-    }
-
     render() {
+      if (this.state.redirect === true) {
+        return <Redirect to={"/fight/" + this.state.room} />
+      }
       return (
         <div>
           <div className="leaderboard-page-header">
@@ -82,23 +76,9 @@ export class CreateRoomPage extends React.Component<CreateRoomPageProps, CreateR
             </Navbar>
           </div>
           <div className="join-page-content">
-            {this.state.error ? <Alert variant="warning" className="error"><Alert.Heading>Error!</Alert.Heading>{this.state.error}</Alert> : ""}
-            {this.state.success ? <Alert variant="success" className="success"><Alert.Heading>Success!</Alert.Heading>{this.state.success}</Alert> : ""}
-
             <Form>
-            <h1>Create A Room</h1>
-              <Form.Group controlId="formRoomCode">
-                <Form.Label>Room Code</Form.Label>
-                <Form.Control placeholder="Enter Room Code" onChange={this.changeRoom}/>
-              </Form.Group>
-
-              <Row className="buttons">
-                <Link to="/">
-                  <Button variant="danger">Go Back</Button>
-                </Link>
-                <Button variant="success" onClick={() => { createRoom(this.state.room, () => this.toWaiting(), (err: string) => this.err(err))}}>Create</Button>
-              </Row>
-
+              <h1>Create A Room</h1>
+              <WaitModal show={true} roomCode={this.state.room}/>
             </Form>
           </div>
         </div>

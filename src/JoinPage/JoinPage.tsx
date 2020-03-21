@@ -1,10 +1,12 @@
 import React from 'react';
-import kbWarriorsLogo from "../resources/keyboardWarriorWhite.png";
 import {Link} from 'react-router-dom';
-import {joinRoom} from '../scripts/socket';
-import Alert from 'react-bootstrap/Alert';
-
+import {Redirect} from 'react-router';
+import kbWarriorsLogo from "../resources/keyboardWarriorWhite.png";
 import './JoinPage.css';
+import WaitModal from "../components/WaitForPlayer/WaitModal";
+import {joinRoom} from '../scripts/socket';
+
+import Alert from 'react-bootstrap/Alert';
 import Form from 'react-bootstrap/Form';
 import Navbar from 'react-bootstrap/Navbar';
 import Row from 'react-bootstrap/Row';
@@ -16,8 +18,9 @@ export interface JoinPageProps {
 
 export interface JoinPageState {
   room: string;
-  user: string;
   error: string;
+  wait: boolean;
+  redirect: boolean;
 }
 
 export class JoinPage extends React.Component<JoinPageProps, JoinPageState> {
@@ -26,32 +29,23 @@ export class JoinPage extends React.Component<JoinPageProps, JoinPageState> {
 
       this.state = {
         room: "",
-        user: "",
-        error: ""
+        wait: false,
+        error: "",
+        redirect: false
       };
 
-      this.changeUsername = this.changeUsername.bind(this);
       this.changeRoom = this.changeRoom.bind(this);
-    }
-
-    changeUsername(e: React.FormEvent<HTMLInputElement>) {
-      this.setState({user: e.currentTarget.value});
+      this.waitForPlayer = this.waitForPlayer.bind(this);
     }
 
     changeRoom(e: React.FormEvent<HTMLInputElement>) {
       this.setState({room: e.currentTarget.value});
     }
 
-    // show waiting modal
-    toWaiting() {
-      console.log(this.state.room);
-      console.log(this.state.user);
-    }
-
-    // TODO: try to use callback for when someone else joined room
-    // send to fight page after storing info ab room and username
-    toFight() {
-
+    waitForPlayer() {
+      joinRoom(this.state.room, () => { this.setState({ redirect: true }); }, 
+        () => {this.setState({wait: true});}, 
+        (err: string) => this.err(err));
     }
 
     err(err: string) {
@@ -61,6 +55,9 @@ export class JoinPage extends React.Component<JoinPageProps, JoinPageState> {
     }
 
     render() {
+      if (this.state.redirect === true) {
+        return <Redirect to={"/fight/" + this.state.room} />
+      }
       return (
         <div>
           <div className="leaderboard-page-header">
@@ -79,6 +76,7 @@ export class JoinPage extends React.Component<JoinPageProps, JoinPageState> {
           </div>
           <div className="join-page-content">
             {this.state.error ? <Alert variant="warning" className="error"><Alert.Heading>Error!</Alert.Heading>{this.state.error}</Alert> : ""}
+            <WaitModal show={this.state.wait} roomCode={this.state.room} />
             <Form>
             <h1>Join A Room</h1>
               <Form.Group controlId="formRoomCode">
@@ -90,7 +88,7 @@ export class JoinPage extends React.Component<JoinPageProps, JoinPageState> {
                 <Link to="/">
                   <Button variant="danger">Go Back</Button>
                 </Link>
-                <Button variant="success" onClick={() => { joinRoom(this.state.room, () => this.toWaiting(), (err: string) => this.err(err)); }}>Join</Button>
+                <Button variant="success" onClick={() => { this.waitForPlayer(); }}>Join</Button>
               </Row>
 
             </Form>

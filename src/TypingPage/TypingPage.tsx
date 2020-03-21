@@ -13,6 +13,7 @@ import "./typingPage.css";
 export interface TypingProps {
     insults: string[];
     dark: boolean;
+    roomCode: string;
 }
 
 export interface TypingState {

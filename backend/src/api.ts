@@ -26,8 +26,9 @@ sio.on('connection', (client: SocketIO.Socket) => {
       client.emit('roomDoesNotExist');
     } else if (room && room.length < 2) {
       client.join(roomCode);
+      client.emit("success");
       if (room.length === 2) {
-        sio.sockets.in(roomCode).emit('connectToRoom', "You are connected to room " + roomCode);
+        sio.to(roomCode).emit('connectToRoom', "You are connected to room " + roomCode);
       }
     } else {
       client.emit('roomIsFull');
@@ -41,7 +42,7 @@ sio.on('connection', (client: SocketIO.Socket) => {
     const room = sio.nsps['/'].adapter.rooms[roomCode];
     if (!room) {
       client.join(roomCode);
-      client.emit('connectToRoom');
+      client.emit("success");
     } else {
       client.emit('roomExists');
     }

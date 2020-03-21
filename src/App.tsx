@@ -60,17 +60,14 @@ class App extends React.Component<MyProps, MyState> {
               <Route exact path={'/'}>
                 <LandingPage dark={this.state.dark} />
               </Route>
-              <Route exact path={'/fight'}>
-                <TypingPage dark={this.state.dark} insults={this.state.insults} />
-              </Route>
+              <Route path={'/fight/:roomCode'} render={({match}) => (
+                <TypingPage dark={this.state.dark} insults={this.state.insults} roomCode={match.params.roomCode} />
+              )}/>
               <Route exact path={'/join'}>
                 <JoinPage dark={this.state.dark} />
               </Route>
               <Route exact path={'/leaderboard'}>
                 <LeaderboardPage dark={this.state.dark} />
-              </Route>
-              <Route exact path={'/join'}>
-                <JoinPage dark={this.state.dark} />
               </Route>
               <Route exact path={'/create_room'}>
                 <CreateRoomPage dark={this.state.dark}></CreateRoomPage>
