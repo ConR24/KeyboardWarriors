@@ -5,8 +5,6 @@ import { Leaderboard } from '../components/Leaderboard/Leaderboard';
 import Navbar from 'react-bootstrap/Navbar';
 import Image from 'react-bootstrap/Image';
 
-import logo from "../resources/keyboardWarriors.png";
-
 import './LeaderboardPage.css';
 
 export interface LeaderboardProps {

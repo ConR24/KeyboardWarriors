@@ -1,0 +1,16 @@
+.wait div {
+    padding: 25px;
+    text-align: center;
+}
+
+.wait b {
+    color: var(--brightOrange);
+    font-size: 40pt;
+    margin: 20px 0 30px;
+}
+
+.results{
+    width: 90% !important;
+    margin: auto !important;
+    margin-top: 1rem !important;
+}

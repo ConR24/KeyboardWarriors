@@ -1,8 +1,10 @@
 import React from 'react';
 import './App.css';
 import TypingPage from "./TypingPage/TypingPage";
+import {JoinPage} from "./JoinPage/JoinPage";
 import {LandingPage} from "./LandingPage/LandingPage";
 import {LeaderboardPage} from "./LeaderboardPage/LeaderboardPage";
+import {CreateRoomPage} from "./CreateRoomPage/CreateRoomPage";
 import sun from "./resources/sun.svg";
 import moon from "./resources/night.svg";
 import {
@@ -24,7 +26,7 @@ class App extends React.Component<MyProps, MyState> {
     this.state = {
       testState: "save",
       insults: [],
-      dark: localStorage.getItem("darkMode") ? localStorage.getItem("darkMode") === "true" : false 
+      dark: localStorage.getItem("darkMode") ? localStorage.getItem("darkMode") === "true" : false
     }
 
     this.toggleTheme = this.toggleTheme.bind(this);
@@ -45,7 +47,7 @@ class App extends React.Component<MyProps, MyState> {
       dark: !this.state.dark
     }, () => {
       localStorage.setItem("darkMode", this.state.dark ? "true" : "false");
-    });    
+    });
   }
 
   render(): JSX.Element {
@@ -58,11 +60,17 @@ class App extends React.Component<MyProps, MyState> {
               <Route exact path={'/'}>
                 <LandingPage dark={this.state.dark} />
               </Route>
-              <Route exact path={'/fight'}>
-                <TypingPage dark={this.state.dark} insults={this.state.insults} />
+              <Route path={'/fight/:roomCode'} render={({match}) => (
+                <TypingPage dark={this.state.dark} insults={this.state.insults} roomCode={match.params.roomCode} />
+              )}/>
+              <Route exact path={'/join'}>
+                <JoinPage dark={this.state.dark} />
               </Route>
               <Route exact path={'/leaderboard'}>
                 <LeaderboardPage dark={this.state.dark} />
+              </Route>
+              <Route exact path={'/create_room'}>
+                <CreateRoomPage dark={this.state.dark}></CreateRoomPage>
               </Route>
             </Switch>
           </Router>

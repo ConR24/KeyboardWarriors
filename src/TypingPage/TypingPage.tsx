@@ -15,6 +15,7 @@ import "./typingPage.css";
 export interface TypingProps {
     insults: string[];
     dark: boolean;
+    roomCode: string;
 }
 
 export interface TypingState {
@@ -79,6 +80,10 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
     onReceiveInsult(insult:String) {
         this.setState({insult: insult});
         setTimeout(() => { this.setState({insult: ""}); }, 5000);
+    }
+    
+    componentWillUnmount() {
+        this._timer.current!.stop();
     }
 
     render() {

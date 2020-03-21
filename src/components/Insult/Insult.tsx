@@ -1,6 +1,5 @@
 import React from 'react';
 import "./Insult.css";
-import e from 'express';
 
 export interface InsultProps {
     text: string;
