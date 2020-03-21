@@ -4,13 +4,30 @@ const socket = openSocket('http://localhost:8000');
 /**
  * Joins a room using a room code
  * @param roomCode The room code as a string
+ * @param opponentJoined The callback when an opponent joins the room
  * @param cb The callback to be called when a room is joined
  * @param errCB The callback for an error
  */
-function joinRoom(roomCode: string, cb: any, errCB: any) {
-    socket.on('connectToRoom', (message: any) => cb(null, message));
-    socket.on('roomIsFull', () => errCB(null));
+function joinRoom(roomCode: string, opponentJoined: any, success: any, errCB: any) {
+    socket.on('connectToRoom', (message: any) => opponentJoined(message));
+    socket.on('roomIsFull', () => errCB("Room is full"));
+    socket.on('roomDoesNotExist', () => errCB("Room does not exist"));
+    socket.on('success', success);
     socket.emit('joinRoom', roomCode);
+}
+
+/**
+ * Creates a room using a room code, fails if room already exists
+ * @param roomCode The room code to be created as a string
+ * @param opponentJoined The callback when an opponent joins the room
+ * @param success The callback to be called when a room is joined
+ * @param errCB The callback for an error when the room already exists
+ */
+function createRoom(roomCode: string, opponentJoined: any, success: any, errCB: any){
+    socket.on('connectToRoom', (message: any) => opponentJoined(null, message));
+    socket.on('roomExists', () => errCB('Room Already Exists!'));
+    socket.on('success', success);
+    socket.emit('createRoom', roomCode);
 }
 
 /**
@@ -46,9 +63,11 @@ function leaveRoom(roomCode: string) {
     socket.emit('leaveRoom', roomCode);
 }
 
-export { joinRoom,
+export { 
+    joinRoom,
     sendInsult,
     listenForInsults,
     leaveRoom,
-    listenForPlayerLeft
+    listenForPlayerLeft,
+    createRoom
  };

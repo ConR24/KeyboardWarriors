@@ -1,0 +1,53 @@
+.modal-content {
+    padding: 50px 0;
+}
+
+.keyboard-logo {
+    max-height: 150px;
+    margin: auto;
+    display: block;
+}
+
+.keyboard-warriors{
+    text-align: center;
+    width: 105%;
+}
+
+.room-selection{
+    width: 90% !important;
+    margin: auto !important;
+    margin-top: 1rem !important;
+    justify-content: center;
+}
+
+.room-selection div a button {
+    width: 100%;
+}
+
+.create-container{
+    align-self: center;
+}
+
+.join-container{
+    align-self: center;
+}
+
+.join-room-button{
+    background-color: var(--brightOrange) !important;
+    border-color: var(--brightOrange) !important;
+    margin: auto;
+    color:black !important;
+    font-size: large !important;
+}
+
+.create-room-button{
+    background-color: var(--lightOrange) !important;
+    border-color: var(--lightOrange) !important;
+    margin: auto;
+    color:black !important;
+    font-size: large !important;
+}
+
+.modal-dialog{
+    max-width: 60% !important;
+}

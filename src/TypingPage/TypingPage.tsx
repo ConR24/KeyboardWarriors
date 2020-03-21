@@ -13,6 +13,7 @@ import "./typingPage.css";
 export interface TypingProps {
     insults: string[];
     dark: boolean;
+    roomCode: string;
 }
 
 export interface TypingState {
@@ -65,6 +66,10 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
     handleCopyAndPaste(e: React.ClipboardEvent<HTMLInputElement>): void {
         e.preventDefault();
         e.nativeEvent.stopImmediatePropagation();
+    }
+
+    componentWillUnmount() {
+        this._timer.current!.stop();
     }
 
     render() {
