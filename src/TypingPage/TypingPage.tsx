@@ -5,7 +5,7 @@ import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Timer from "../components/Timer/Timer";
 import { FinishModal } from "../components/Finish/FinishModal";
-import {sendInsult, listenForInsults} from "../scripts/socket";
+import {sendInsult, listenForInsults, leaveRoom} from "../scripts/socket";
 import { InsultsBox } from "../components/InsultsBox/InsultsBox";
 
 import logo from "../resources/keyboardWarriorWhite.png";
@@ -42,7 +42,9 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
         this._timer = React.createRef();
         this.textChanged = this.textChanged.bind(this);
         this.onReceiveInsult = this.onReceiveInsult.bind(this);
+    }
 
+    componentDidMount() {
         //setup insult callback
         listenForInsults(this.onReceiveInsult);
     }
@@ -56,7 +58,7 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
 
         // determine if insult is complete
         if(currentText === this.props.insults[currentInsult]) {
-            sendInsult("1234", this.props.insults[currentInsult]); // TODO: update when room number is stored
+            sendInsult(this.props.roomCode, this.props.insults[currentInsult]);
             this.setState({
                 currentInsult: currentInsult + 1,
                 typedText: ""
@@ -77,13 +79,18 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
         e.nativeEvent.stopImmediatePropagation();
     }
 
-    onReceiveInsult(insult:String) {
-        this.setState({insult: insult});
-        setTimeout(() => { this.setState({insult: ""}); }, 5000);
+    onReceiveInsult(insult: String) {
+        // ensure player is not shown their own insults
+        if(insult !== this.props.insults[this.state.currentInsult - 1])
+        {
+            this.setState({insult: insult});
+            setTimeout(() => { this.setState({insult: ""}); }, 5000);
+        }
     }
-    
+
     componentWillUnmount() {
         this._timer.current!.stop();
+        leaveRoom(this.props.roomCode);
     }
 
     render() {

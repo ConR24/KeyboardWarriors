@@ -52,14 +52,16 @@ sio.on('connection', (client: SocketIO.Socket) => {
    * Send an insult to everyone else in  the room
    */
   client.on('sendInsult', (roomCode: string, insult: string) => {
-    client.broadcast.to(roomCode).emit('incomingInsult', insult);
+    console.log(insult);
+    console.log(roomCode);
+    sio.to(roomCode).emit('incomingInsult', insult);
   });
 
   /**
    * Send a message to everyone else in the room to leave and have the client leave the room
    */
   client.on('leaveRoom', (roomCode: string) => {
-    client.broadcast.to(roomCode).emit('playerLeftRoom');
+    sio.to(roomCode).emit('playerLeftRoom');
     client.leave(roomCode);
   });
 
@@ -68,7 +70,7 @@ sio.on('connection', (client: SocketIO.Socket) => {
    */
   client.on('disconnect', (reason: string) => {
     Object.keys(client.rooms).forEach(roomCode => {
-      client.broadcast.to(roomCode).emit('playerLeftRoom');
+      sio.to(roomCode).emit('playerLeftRoom');
       client.leave(roomCode);
     });
   })
