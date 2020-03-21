@@ -68,6 +68,10 @@ class TypingPage extends React.Component<TypingProps, TypingState> {
         e.nativeEvent.stopImmediatePropagation();
     }
 
+    componentWillUnmount() {
+        this._timer.current!.stop();
+    }
+
     render() {
         const {currentInsult, typedText} = this.state;
         
