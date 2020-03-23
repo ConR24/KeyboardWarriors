@@ -19,6 +19,7 @@
     width: fit-content;
     position: absolute;
     left: 7%;
+    top: 230px;
 }
 
 @media screen and (max-width: 1300px) {
@@ -38,4 +39,8 @@
     .input-box {
         padding: 0 20px;
     }
+}
+
+.dark-input{
+    background-color: #444444;
 }

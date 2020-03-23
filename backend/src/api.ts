@@ -12,8 +12,8 @@ const sio = require('socket.io')(server);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const insults = require('../../src/resources/insults.json');
-let leaderboard = require('../../src/resources/leaderboard.json');
+const insults = require('../src/resources/insults.json');
+let leaderboard = require('../src/resources/leaderboard.json');
 
 // Define Socket.IO functions
 sio.on('connection', (client: SocketIO.Socket) => {
@@ -23,11 +23,12 @@ sio.on('connection', (client: SocketIO.Socket) => {
   client.on('joinRoom', (roomCode: string) => {
     const room = sio.nsps['/'].adapter.rooms[roomCode];
     if (!room) {
-      client.join(roomCode);
+      client.emit('roomDoesNotExist');
     } else if (room && room.length < 2) {
       client.join(roomCode);
+      client.emit("success");
       if (room.length === 2) {
-        sio.sockets.in(roomCode).emit('connectToRoom', "You are connected to room " + roomCode);
+        sio.to(roomCode).emit('connectToRoom', "You are connected to room " + roomCode);
       }
     } else {
       client.emit('roomIsFull');
@@ -35,17 +36,30 @@ sio.on('connection', (client: SocketIO.Socket) => {
   });
 
   /**
+   * Join a room with a room code. Only joins if that room does not exist.
+   */
+  client.on('createRoom', (roomCode: string) => {
+    const room = sio.nsps['/'].adapter.rooms[roomCode];
+    if (!room) {
+      client.join(roomCode);
+      client.emit("success");
+    } else {
+      client.emit('roomExists');
+    }
+  })
+
+  /**
    * Send an insult to everyone else in  the room
    */
   client.on('sendInsult', (roomCode: string, insult: string) => {
-    client.broadcast.to(roomCode).emit('incomingInsult', insult);
+    sio.to(roomCode).emit('incomingInsult', insult);
   });
 
   /**
    * Send a message to everyone else in the room to leave and have the client leave the room
    */
   client.on('leaveRoom', (roomCode: string) => {
-    client.broadcast.to(roomCode).emit('playerLeftRoom');
+    sio.to(roomCode).emit('playerLeftRoom');
     client.leave(roomCode);
   });
 
@@ -54,7 +68,7 @@ sio.on('connection', (client: SocketIO.Socket) => {
    */
   client.on('disconnect', (reason: string) => {
     Object.keys(client.rooms).forEach(roomCode => {
-      client.broadcast.to(roomCode).emit('playerLeftRoom');
+      sio.to(roomCode).emit('playerLeftRoom');
       client.leave(roomCode);
     });
   })

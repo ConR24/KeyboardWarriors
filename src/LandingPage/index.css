@@ -1,5 +1,9 @@
+.dark-text{
+    color:white
+}
+
 .landing-container {
-    margin-top: 10%;
+    padding-top: 10%;
 }
 
 .fight-button{
