@@ -22,6 +22,10 @@
     top: 230px;
 }
 
+.dark-input{
+    background-color: #444444;
+}
+
 @media screen and (max-width: 1300px) {
     .timer {
         position: unset;
@@ -39,8 +43,4 @@
     .input-box {
         padding: 0 20px;
     }
-}
-
-.dark-input{
-    background-color: #444444;
 }
