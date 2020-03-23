@@ -14,8 +14,15 @@
 .table-striped>tbody>tr:nth-child(odd)>td, 
 .table-striped>tbody>tr:nth-child(odd)>th {
    background-color:rgba(255,165,82, 0.5);
- }
+}
 
 .dark-table *{
     color: white
+}
+
+@media screen and (max-width: 850px) {
+    .leaderboard-container,
+    .leaderboard-table {
+        width: 100%;
+    }
 }

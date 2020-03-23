@@ -33,3 +33,22 @@
 .title{
     text-align: center;
 }
+
+@media screen and (max-width: 830px) {
+    .justify-content-md-center {
+        justify-content: center!important;
+    }
+
+    .col-3 {
+        max-width: unset !important;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .col-3 {
+        flex: unset !important;
+        width: 80% !important;
+        margin-left: 0 !important;
+        margin-bottom: 10px;
+    }
+}
